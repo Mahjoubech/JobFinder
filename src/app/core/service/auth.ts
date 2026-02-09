@@ -85,5 +85,17 @@ export class Auth {
       })
     );
   }
+  getCurrentUser(): User | null {
+    if (this.currentUser) return this.currentUser;
 
+    const stored = localStorage.getItem('user');
+    return stored ? JSON.parse(stored) : null;
+  }
+  logout() {
+    this.currentUser = null;
+    localStorage.removeItem('user');
+  }
+  isAuthenticated(): boolean {
+    return !!this.getCurrentUser();
+  }
 }

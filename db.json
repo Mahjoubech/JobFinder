@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "firstName": "Ali",
+      "lastName": "Test",
+      "email": "ali@test.com",
+      "password": "1234"
+    }
+  ],
+  "favoritesOffers": [
+    {
+      "id" : "ghsdjsgjdsjgjsg",
+      "order_id" : "123"
+    }
+  ],
+  "candidatures": [
+    {
+      "id": "123",
+      "name"  : "produit"
+    }
+  ]
+}

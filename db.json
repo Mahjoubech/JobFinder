@@ -13,6 +13,20 @@
       "prenom": "hamza",
       "email": "hamza@gmail.com",
       "password": "password"
+    },
+    {
+      "id": "fa20d7c6-d3fd-48a1-971b-3db917aa275e",
+      "firstName": "Mestafa",
+      "lastName": "GHzlani",
+      "email": "ghzlani@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "8d9a78f5-fd29-498b-871c-ba76c394914b",
+      "firstName": "mastafa",
+      "lastName": "ghzlani",
+      "email": "ahmed@gmail.com",
+      "password": "password"
     }
   ],
   "favoritesOffers": [

@@ -1,22 +1,30 @@
 {
   "users": [
     {
-      "firstName": "Ali",
-      "lastName": "Test",
-      "email": "ali@test.com",
-      "password": "1234"
+      "id": "1",
+      "nom": "mahjoub",
+      "prenom": "cherkaoui",
+      "email": "cherkaoui@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "2",
+      "nom": "hadouchi",
+      "prenom": "hamza",
+      "email": "hamza@gmail.com",
+      "password": "password"
     }
   ],
   "favoritesOffers": [
     {
-      "id" : "ghsdjsgjdsjgjsg",
-      "order_id" : "123"
+      "id": "ghsdjsgjdsjgjsg",
+      "order_id": "123"
     }
   ],
   "candidatures": [
     {
       "id": "123",
-      "name"  : "produit"
+      "name": "produit"
     }
   ]
 }

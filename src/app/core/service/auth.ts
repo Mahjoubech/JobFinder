@@ -17,7 +17,7 @@ export class Auth {
  private API_URL = "http://localhost:3000/users"
   private currentUser: User | null = null ;
   constructor(private http : HttpClient) {}
-  register(firstName: string, lastName: string, email: string, password: string,confirmPass: string):Observable<User | {error : String}>{
+  register(firstName: string, lastName: string, email: string, password: string,confirmPass: string):Observable<User | {error : string}>{
     if(!firstName || !lastName || !email || !password || !confirmPass){
       return of({error : "Some fields are required"});
     }

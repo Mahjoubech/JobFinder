@@ -1,1 +1,133 @@
-<p>register works!</p>
+<div class="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    <div class="text-center mb-8">
+      <div class="inline-block bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-3xl p-1 mb-4 shadow-xl">
+        <div class="bg-white rounded-[22px] p-5">
+          <svg class="w-14 h-14" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Briefcase icon with modern gradient -->
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#9333EA;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+
+            <!-- Briefcase body -->
+            <rect x="8" y="22" width="48" height="32" rx="6" fill="url(#logoGradient)"/>
+
+            <!-- Handle -->
+            <path d="M22 22V16C22 13.7909 23.7909 12 26 12H38C40.2091 12 42 13.7909 42 16V22"
+                  stroke="url(#logoGradient)" stroke-width="4" stroke-linecap="round"/>
+
+            <!-- Lock/Clasp -->
+            <circle cx="32" cy="38" r="4" fill="white"/>
+            <rect x="30" y="38" width="4" height="8" rx="2" fill="white"/>
+
+            <!-- Decorative search icon overlay -->
+            <circle cx="48" cy="18" r="8" fill="url(#logoGradient)"/>
+            <circle cx="48" cy="18" r="4" fill="white"/>
+            <line x1="51" y1="21" x2="54" y2="24" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent mb-1" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; letter-spacing: -0.02em;">
+        JobFinder
+      </h1>
+      <p class="text-gray-500 text-sm font-medium">Find your dream career</p>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8">
+      <form (ngSubmit)="register()" class="space-y-5">
+        <div class="grid grid-cols-2 gap-3">
+          <div class="relative">
+            <input
+              [(ngModel)]="firstName"
+              name="firstName"
+              type="text"
+              placeholder="First Name"
+              class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm"
+              required
+            />
+          </div>
+          <div class="relative">
+            <input
+              [(ngModel)]="lastName"
+              name="lastName"
+              type="text"
+              placeholder="Last Name"
+              class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm"
+              required
+            />
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+            </svg>
+          </div>
+          <input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            placeholder="Email address"
+            class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm"
+            required
+          />
+        </div>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+          <input
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm"
+            required
+          />
+        </div>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <input
+            [(ngModel)]="confirmPass"
+            name="confirmPass"
+            type="password"
+            placeholder="Confirm password"
+            class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 text-sm"
+            required
+          />
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMess" class="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm flex items-start gap-2">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+          <span>{{ errorMess }}</span>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold py-3.5 rounded-xl hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-4 focus:ring-purple-300 transition-all duration-200 shadow-lg shadow-purple-500/30"
+        >
+          Create Account
+        </button>
+      </form>
+    </div>
+
+    <!-- Sign In Link -->
+    <p class="text-center mt-6 text-sm text-gray-600">
+      Already have an account?
+      <a href="#" class="font-semibold text-purple-600 hover:text-purple-700 transition-colors">Sign in</a>
+    </p>
+  </div>
+</div>

@@ -4,11 +4,11 @@ import {v4 as uuidv4} from 'uuid';
 import {map, mergeMap, Observable, of} from 'rxjs';
 
 export interface User{
-  id: String,
-  firstName:String,
-  lastName:String,
-  email:String,
-  password:String
+  id: string,
+  firstName:string,
+  lastName:string,
+  email:string,
+  password:string
 }
 @Injectable({
   providedIn: 'root',
@@ -45,6 +45,7 @@ export class Auth {
         };
         return this.http.post<User>(this.API_URL , newUser).pipe(
           map(user => {
+            this.currentUser = user;
             localStorage.setItem('user' , JSON.stringify((user)))
             return user;
           })
@@ -52,6 +53,37 @@ export class Auth {
 
       })
     )
+  }
+  login(email: string, password: string): Observable<User | { error: string }> {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      return of({ error: 'Invalid email format' });
+    }
+
+    if (password.length < 6) {
+      return of({ error: 'Password must be at least 6 characters' });
+    }
+
+    return this.http.get<User[]>(`${this.API_URL}?email=${email}`).pipe(
+
+      map(users => {
+
+        const user = users[0];
+
+        if (!user) {
+          return { error: 'User not found' };
+        }
+
+        if (user.password !== password) {
+          return { error: 'Incorrect password' };
+        }
+       this.currentUser = user;
+        localStorage.setItem('user', JSON.stringify(user));
+
+        return user;
+      })
+    );
   }
 
 }

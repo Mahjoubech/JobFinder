@@ -27,6 +27,13 @@
       "lastName": "ghzlani",
       "email": "ahmed@gmail.com",
       "password": "password"
+    },
+    {
+      "id": "fd0f1823-b348-4aec-ae6a-1527ee793998",
+      "firstName": "eeee",
+      "lastName": "eeeee",
+      "email": "hamadi@gmail.com",
+      "password": "password"
     }
   ],
   "favoritesOffers": [

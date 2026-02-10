@@ -4,10 +4,11 @@ import {JobList} from './features/jobs/job-list/job-list';
 import {Login} from './features/auth/login/login';
 import {Profile} from './features/auth/profile/profile';
 import {AuthGuard} from './core/guards/auth-guard';
+import {Home} from './features/home/home';
 
 export const routes: Routes = [
   {path : "register" , component: Register},
-  {path: "dashboard" , component: JobList},
+  {path: "dashboard" , component: Home},
   {path:'login' , component: Login},
   {path:'profile' , component:Profile , canActivate:[AuthGuard]}
 ];

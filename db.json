@@ -2,15 +2,15 @@
   "users": [
     {
       "id": "1",
-      "nom": "mahjoub",
-      "prenom": "cherkaoui",
+      "firstName": "mahjoub",
+      "lastName": "cherkaoui",
       "email": "cherkaoui@gmail.com",
       "password": "password"
     },
     {
       "id": "2",
-      "nom": "hadouchi",
-      "prenom": "hamza",
+      "firstName": "hadouchi",
+      "lastName": "hamza",
       "email": "hamza@gmail.com",
       "password": "password"
     },
@@ -33,6 +33,20 @@
       "firstName": "eeee",
       "lastName": "eeeee",
       "email": "hamadi@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "9f31d021-e4bb-444c-a78a-f9f84a1add0b",
+      "firstName": "ilyass",
+      "lastName": "hrban",
+      "email": "ilyass@gmail.com",
+      "password": "password"
+    },
+    {
+      "id": "8e7b68c1-6b42-48b9-bf5f-645a596f73f3",
+      "firstName": "mastafa",
+      "lastName": " eeee",
+      "email": "eee@gmail.com",
       "password": "password"
     }
   ],

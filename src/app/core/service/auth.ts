@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {v4 as uuidv4} from 'uuid';
-import {map, mergeMap, Observable, of} from 'rxjs';
+import {map, mergeMap, Observable, of, throwError} from 'rxjs';
 
 export interface User{
   id: string,
@@ -17,74 +17,52 @@ export class Auth {
  private API_URL = "http://localhost:3000/users"
   private currentUser: User | null = null ;
   constructor(private http : HttpClient) {}
-  register(firstName: string, lastName: string, email: string, password: string,confirmPass: string):Observable<User | {error : string}>{
-    if(!firstName || !lastName || !email || !password || !confirmPass){
-      return of({error : "Some fields are required"});
-    }
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailRegex.test(email)){
-      return  of({error: "invalid email format"})
-    }
-    if(password.length < 6){
-      return of({error: "Password must be at least 6 characters"});
-    }
-    if(password !== confirmPass){
-      return of({error : "Passwords do not match"});
-    }
+
+  register(firstName: string, lastName: string, email: string, password: string): Observable<User> {
     return this.http.get<User[]>(`${this.API_URL}?email=${email}`).pipe(
       mergeMap(users => {
-        if(users.length > 0){
-          return of({error : "Email Alredy Exits"});
+        if (users.length > 0) {
+          return throwError(() => new Error('Email already exists'));
         }
-        const newUser:User = {
+        const newUser: User = {
           id: uuidv4(),
           firstName,
           lastName,
           email,
           password,
         };
-        return this.http.post<User>(this.API_URL , newUser).pipe(
+        return this.http.post<User>(this.API_URL, newUser).pipe(
           map(user => {
             this.currentUser = user;
-            localStorage.setItem('user' , JSON.stringify((user)))
+            // SECURITY: Do not store password in local storage
+            const { password, ...userWithoutPassword } = user;
+            localStorage.setItem('user', JSON.stringify(userWithoutPassword));
             return user;
           })
-        )
-
+        );
       })
-    )
+    );
   }
-  login(email: string, password: string): Observable<User | { error: string }> {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) {
-      return of({ error: 'Invalid email format' });
-    }
-
-    if (password.length < 6) {
-      return of({ error: 'Password must be at least 6 characters' });
-    }
-
+  login(email: string, password: string): Observable<User> {
     return this.http.get<User[]>(`${this.API_URL}?email=${email}`).pipe(
-
       map(users => {
-
         const user = users[0];
-
         if (!user) {
-          return { error: 'User not found' };
+          throw new Error('User not found');
         }
-
         if (user.password !== password) {
-          return { error: 'Incorrect password' };
+          throw new Error('Incorrect password');
         }
-       this.currentUser = user;
-        localStorage.setItem('user', JSON.stringify(user));
-
+        this.currentUser = user;
+        // SECURITY: Do not store password in local storage
+        const { password: _, ...userWithoutPassword } = user;
+        localStorage.setItem('user', JSON.stringify(userWithoutPassword));
         return user;
       })
     );
   }
+
   getCurrentUser(): User | null {
     if (this.currentUser) return this.currentUser;
 
@@ -97,5 +75,10 @@ export class Auth {
   }
   isAuthenticated(): boolean {
     return !!this.getCurrentUser();
+  }
+  updateProfile(id:string,firstName: string, lastName: string ,password: string):Observable<User>{
+    return this.http.put<User>(`${this.API_URL}/:${id}`){
+
+    }
   }
 }

@@ -1,1 +1,17 @@
-<p>job-list works!</p>
+<div
+  class="bg-white rounded-xl border border-gray-200 h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar"
+  (scroll)="onScroll($event)"
+>
+
+  <app-job-card
+    *ngFor="let job of jobs; trackBy: trackByJob"
+    [job]="job"
+  ></app-job-card>
+  <app-loader *ngIf="loading"></app-loader>
+
+  <div *ngIf="allLoaded" class="p-4 text-center text-gray-400 text-sm">
+    No more jobs to load.
+  </div>
+
+</div>
+

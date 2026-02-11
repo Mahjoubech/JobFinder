@@ -1,1 +1,71 @@
-<p>job-search works!</p>
+<header class="bg-white border-b border-gray-200 fixed top-0 w-full z-50 h-16">
+  <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between gap-4">
+    <div class="flex items-center gap-4 flex-1">
+      <a routerLink="/" class="flex-shrink-0 flex items-center gap-2">
+        <div
+          class="bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-lg p-0.5 shadow-md"
+        >
+          <div class="bg-white rounded-[6px] p-1">
+            <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="logoNavGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color: #3b82f6" />
+                  <stop offset="50%" style="stop-color: #9333ea" />
+                  <stop offset="100%" style="stop-color: #ec4899" />
+                </linearGradient>
+              </defs>
+              <rect x="8" y="22" width="48" height="32" rx="6" fill="url(#logoNavGrad)" />
+              <path
+                d="M22 22 V16 C22 14 24 12 26 12 H38 C40 12 42 14 42 16 V22"
+                stroke="url(#logoNavGrad)"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+              <circle cx="32" cy="38" r="4" fill="white" />
+              <rect x="30" y="38" width="4" height="8" rx="2" fill="white" />
+              <circle cx="48" cy="18" r="8" fill="url(#logoNavGrad)" />
+              <circle cx="48" cy="18" r="4" fill="white" />
+              <line
+                x1="51"
+                y1="21"
+                x2="54"
+                y2="24"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <span
+          class="text-xl font-bold bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent hidden md:block"
+          >JobFinder</span
+        >
+      </a>
+
+      <div
+        class="hidden md:flex items-center bg-gray-100 rounded-lg text-gray-600 px-3 py-1.5 w-full max-w-sm transition-all focus-within:w-full focus-within:max-w-lg focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-100 focus-within:border-purple-200 border border-transparent"
+      >
+        <svg
+          class="w-5 h-5 mr-3 text-gray-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          ></path>
+        </svg>
+        <input
+          type="text"
+          placeholder="Search"
+          class="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500 font-medium h-6"
+        />
+      </div>
+    </div>
+    <app-navbar></app-navbar>
+  </div>
+</header>

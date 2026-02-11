@@ -76,9 +76,13 @@ export class Auth {
   isAuthenticated(): boolean {
     return !!this.getCurrentUser();
   }
-  updateProfile(id:string,firstName: string, lastName: string ,password: string):Observable<User>{
-    return this.http.put<User>(`${this.API_URL}/:${id}`){
-
-    }
-  }
-}
+  updateProfile(id: string, data: Partial<User>): Observable<User> {
+    return this.http.patch<User>(`${this.API_URL}/${id}`, data).pipe(
+      map(updatedUser => {
+        this.currentUser = updatedUser;
+        const { password, ...userWithoutPassword } = updatedUser;
+        localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+        return updatedUser;
+      })
+    );
+  }}

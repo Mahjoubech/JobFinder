@@ -7,9 +7,9 @@
     *ngFor="let job of jobs; trackBy: trackByJob"
     [job]="job"
   ></app-job-card>
-  <app-loader *ngIf="loading"></app-loader>
+  <app-loader *ngIf="loading()"></app-loader>
 
-  <div *ngIf="allLoaded" class="p-4 text-center text-gray-400 text-sm">
+  <div *ngIf="allLoaded()" class="p-4 text-center text-gray-400 text-sm">
     No more jobs to load.
   </div>
 

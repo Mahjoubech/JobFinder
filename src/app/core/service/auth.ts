@@ -77,12 +77,14 @@ export class Auth {
     return !!this.getCurrentUser();
   }
   updateProfile(id: string, data: Partial<User>): Observable<User> {
-    return this.http.patch<User>(`${this.API_URL}/${id}`, data).pipe(
-      map(updatedUser => {
-        this.currentUser = updatedUser;
-        const { password, ...userWithoutPassword } = updatedUser;
-        localStorage.setItem('user', JSON.stringify(userWithoutPassword));
-        return updatedUser;
-      })
-    );
-  }}
+  return this.http.patch<User>(`${this.API_URL}/${id}`, data).pipe(
+    map(updatedUser => {
+      this.currentUser = updatedUser;
+      const { password, ...userWithoutPassword } = updatedUser;
+      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+      
+      return updatedUser;
+    })
+  );
+}
+}

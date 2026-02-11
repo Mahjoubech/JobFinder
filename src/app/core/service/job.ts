@@ -18,10 +18,9 @@ export interface Job{
 export class JobService  {
   private API_URL = '/themuse-api/api/public/jobs?page=0&descending=true';
   constructor(private http: HttpClient) {}
-  getJobs(): Observable<Job[]>{
-    return this.http.get<any>(this.API_URL).pipe(
-      map(res => res.results)
+  getJobs(page:number = 0 , limit:number): Observable<Job[]> {
+    const url = `/themuse-api/api/public/jobs?page=${page}&items_per_page=${limit}&descending=true`;
+    return this.http.get<any>(url).pipe(
+      map(res => res.results.slice(0 , limit))
     );
-
-  }
-}
+  }}

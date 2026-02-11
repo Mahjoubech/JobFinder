@@ -1,1 +1,43 @@
-<p>job-card works!</p>
+<div *ngIf="job" class="p-4 border-b border-gray-100 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 cursor-pointer transition-all duration-300 relative group border-l-4 border-transparent hover:border-l-purple-500 animate-fade-in-up">
+  <div class="flex gap-4">
+    <!-- Company Logo -->
+    <div class="flex-shrink-0">
+      <div class="w-12 h-12 rounded-lg bg-white shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
+        <img
+          #companyLogo
+          [src]="'https://logo.clearbit.com/' + (job?.company?.name || 'unknown') + '.com'"
+          (error)="companyLogo.src='https://via.placeholder.com/40'"
+          class="w-8 h-8 object-contain"
+          alt="Company Logo"
+        />
+      </div>
+    </div>
+
+    <div class="flex-1 min-w-0">
+      <!-- Job Title -->
+      <h3 class="text-base font-bold text-gray-900 truncate group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300">
+        {{ job?.name || 'Untitled Job' }}
+      </h3>
+
+      <!-- Company Name -->
+      <p class="text-sm font-medium text-gray-700 truncate">{{ job?.company?.name || 'Unknown Company' }}</p>
+
+      <!-- Location -->
+      <div class="flex items-center gap-2 mt-1 text-xs text-gray-500">
+        <span>{{ job?.locations?.[0]?.name || 'Remote' }}</span>
+      </div>
+
+      <div class="flex items-center gap-3 mt-2">
+        <!-- Level Tag -->
+        <div class="flex items-center gap-1 text-xs font-medium text-green-600 bg-green-50 px-2 py-0.5 rounded-full border border-green-100">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+          </svg>
+          <span>{{ job?.levels?.[0]?.name || 'Entry Level' }}</span>
+        </div>
+        <!-- Date -->
+        <span class="text-xs text-gray-400">{{ (job?.publication_date | date:'shortDate') || 'Recently' }}</span>
+      </div>
+    </div>
+  </div>
+</div>

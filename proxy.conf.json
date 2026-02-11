@@ -1,0 +1,10 @@
+{
+  "/themuse-api": {
+    "target": "https://www.themuse.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/themuse-api": ""
+    }
+  }
+}

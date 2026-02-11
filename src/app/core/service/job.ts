@@ -16,11 +16,12 @@ export interface Job{
   providedIn: 'root',
 })
 export class JobService  {
-  private API_URL = 'https://www.themuse.com/api/public/jobs?page=0&descending=true';
+  private API_URL = '/themuse-api/api/public/jobs?page=0&descending=true';
   constructor(private http: HttpClient) {}
   getJobs(): Observable<Job[]>{
     return this.http.get<any>(this.API_URL).pipe(
       map(res => res.results)
-    )
+    );
+
   }
 }

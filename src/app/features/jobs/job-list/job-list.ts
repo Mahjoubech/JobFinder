@@ -14,7 +14,7 @@ import {Loader} from '../../../shared/components/loader/loader';
 export class JobList implements OnInit{
 jobs:Job[] = [];
 page = 0;
-limit = 8 ;
+limit = 20 ;
 loading = false ;
 allLoaded = false ;
 constructor(protected jobService : JobService) {}

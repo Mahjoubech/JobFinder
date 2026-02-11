@@ -5,10 +5,15 @@
       <div class="w-12 h-12 rounded-lg bg-white shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
         <img
           #companyLogo
+          loading="lazy"
           [src]="getCompanyLogo(job?.company?.name || '')"           (error)="companyLogo.src='https://via.placeholder.com/40'"
           class="w-8 h-8 object-contain"
           alt="Company Logo"
         />
+        <!-- BEFORE -->
+        <div *ngIf="job" class="... animate-fade-in-up">
+          <!-- AFTER (Remove it!) -->
+          <div *ngIf="job" class="p-4 border-b border-gray-100 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 cursor-pointer transition-all duration-300 relative group border-l-4 border-transparent hover:border-l-purple-500">
       </div>
     </div>
 

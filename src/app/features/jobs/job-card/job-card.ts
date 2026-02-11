@@ -11,7 +11,7 @@ import {Job} from '../../../core/service/job';
   styleUrl: './job-card.css',
 })
 export class JobCard {
- @Input() job!: Job;
+  @Input() job!: Job;
 
   getCompanyLogo(name: string): string {
     if (!name) return 'https://via.placeholder.com/40';

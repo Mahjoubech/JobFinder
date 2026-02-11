@@ -5,8 +5,7 @@
       <div class="w-12 h-12 rounded-lg bg-white shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
         <img
           #companyLogo
-          [src]="'https://logo.clearbit.com/' + (job?.company?.name || 'unknown') + '.com'"
-          (error)="companyLogo.src='https://via.placeholder.com/40'"
+          [src]="getCompanyLogo(job?.company?.name || '')"           (error)="companyLogo.src='https://via.placeholder.com/40'"
           class="w-8 h-8 object-contain"
           alt="Company Logo"
         />

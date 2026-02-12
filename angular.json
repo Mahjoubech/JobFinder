@@ -55,7 +55,7 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "proxyConfig": "proxy.conf.json",  // <--- ADD THIS LINE
+            "proxyConfig": "proxy.conf.json",
             "buildTarget": "JobFinder:build"
           },
           "configurations": {

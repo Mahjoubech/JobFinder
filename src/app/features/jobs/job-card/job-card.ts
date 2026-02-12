@@ -20,32 +20,26 @@ export class JobCard {
 
   getCompanyInitials(name: string | undefined): string {
     if (!name) return 'JF'; // JobFinder default
-    
-    // Clean up the name
+
     let cleanName = name
       .replace(/[,.]/g, '')
       .replace(/Inc$/i, '')
       .replace(/LLC$/i, '')
       .trim();
-
-    // If name is short (<= 4 chars), use it directly
     if (cleanName.length <= 4) return cleanName.toUpperCase();
 
-    // Split into words
     const words = cleanName.split(' ');
-    
-    // If only one word, take first 2 chars
+
     if (words.length === 1) {
       return cleanName.substring(0, 2).toUpperCase();
     }
-    
-    // If multiple words, take first letter of first 2 words
+
     return (words[0][0] + words[1][0]).toUpperCase();
   }
 
   getLogoBackground(name: string | undefined): string {
     if (!name) return 'bg-gray-100';
-    
+
     const colors = [
       'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400',
       'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400',
@@ -62,13 +56,12 @@ export class JobCard {
       'bg-pink-100 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400',
       'bg-rose-100 text-rose-600 dark:bg-rose-900/30 dark:text-rose-400'
     ];
-    
-    // Simple hash to get consistent color for same company
+
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
         hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
-    
+
     const index = Math.abs(hash) % colors.length;
     return colors[index];
   }

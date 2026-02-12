@@ -12,7 +12,7 @@ import { JobService } from '../../../core/service/job';
 })
 export class JobFilter implements OnInit {
   activeDropdown: string | null = null;
-  
+
   filters = {
     date: '',
     level: '',
@@ -35,8 +35,6 @@ export class JobFilter implements OnInit {
 
   ngOnInit() {
     this.jobService.jobs$.subscribe(() => {
-      // Use setTimeout to avoid NG0100 error (ExpressionChangedAfterItHasBeenCheckedError)
-      // This ensures the view update happens in the next macrotask
       setTimeout(() => {
         this.companies = this.jobService.getUniqueCompanies();
         this.levels = this.jobService.getUniqueLevels();
@@ -56,7 +54,7 @@ export class JobFilter implements OnInit {
     if (type === 'easyApply') this.filters.easyApply = !this.filters.easyApply;
 
     this.jobService.filterJobs(this.filters);
-    
+
     if (type !== 'remote' && type !== 'easyApply') {
       this.activeDropdown = null;
     }

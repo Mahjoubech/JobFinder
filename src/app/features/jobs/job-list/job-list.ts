@@ -21,7 +21,6 @@ allLoaded =  signal(false) ;
   searchKeyword = '';
 constructor(protected jobService : JobService) {}
   ngOnInit(): void {
-  // this.loadJobs();
     this.jobService.jobs$.subscribe(jobs => {
       this.jobs = jobs;
     });

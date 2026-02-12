@@ -1,17 +1,19 @@
-<header class="bg-white border-b border-gray-200 fixed top-0 w-full z-50 h-16">
+<header
+  class="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 fixed top-0 w-full z-50 h-16 transition-colors duration-300"
+>
   <div class="max-w-7xl mx-auto px-4 h-full flex items-center justify-between gap-4">
     <div class="flex items-center gap-4 flex-1">
       <a routerLink="/" class="flex-shrink-0 flex items-center gap-2">
         <div
-          class="bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-lg p-0.5 shadow-md"
+          class="bg-gradient-to-br from-purple-600 via-fuchsia-500 to-pink-500 rounded-lg p-0.5 shadow-md"
         >
-          <div class="bg-white rounded-[6px] p-1">
+          <div class="bg-white dark:bg-slate-900 rounded-[6px] p-1">
             <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="logoNavGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color: #3b82f6" />
-                  <stop offset="50%" style="stop-color: #9333ea" />
-                  <stop offset="100%" style="stop-color: #ec4899" />
+                  <stop offset="0%" style="stop-color: #9333ea" />
+                  <stop offset="50%" style="stop-color: #c084fc" />
+                  <stop offset="100%" style="stop-color: #e879f9" />
                 </linearGradient>
               </defs>
               <rect x="8" y="22" width="48" height="32" rx="6" fill="url(#logoNavGrad)" />
@@ -38,13 +40,13 @@
           </div>
         </div>
         <span
-          class="text-xl font-bold bg-gradient-to-r from-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent hidden md:block"
+          class="text-xl font-bold bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent hidden md:block"
           >JobFinder</span
         >
       </a>
 
       <div
-        class="hidden md:flex items-center bg-gray-100 rounded-lg text-gray-600 px-3 py-1.5 w-full max-w-sm transition-all focus-within:w-full focus-within:max-w-lg focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-100 focus-within:border-purple-200 border border-transparent"
+        class="hidden md:flex items-center bg-gray-100 dark:bg-slate-800 rounded-lg text-gray-600 dark:text-gray-300 px-3 py-1.5 w-full max-w-sm transition-all focus-within:w-full focus-within:max-w-lg focus-within:bg-white dark:focus-within:bg-slate-900 focus-within:ring-2 focus-within:ring-purple-100 dark:focus-within:ring-purple-500/30 focus-within:border-purple-200 dark:focus-within:border-purple-500/50 border border-transparent"
       >
         <svg
           class="w-5 h-5 mr-3 text-gray-500"
@@ -60,11 +62,45 @@
           ></path>
         </svg>
         <input
+          [(ngModel)]="keyword"
+          (keyup.enter)="onSearch()"
           type="text"
-          placeholder="Search"
-          class="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500 font-medium h-6"
+          placeholder="Search items..."
+          class="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500 dark:placeholder-gray-400 dark:text-gray-200 font-medium h-6"
         />
+        <button
+          *ngIf="keyword"
+          (click)="onReset()"
+          class="ml-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors focus:outline-none"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
       </div>
+
+      <!-- Explicit Reset Button -->
+      <button
+        (click)="onReset()"
+        *ngIf="keyword"
+        class="hidden md:flex items-center gap-2 px-4 py-1.5 text-sm font-medium text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg transition-colors border border-transparent hover:border-gray-300 dark:hover:border-slate-600 animate-fade-in-up"
+        title="Reset Search to Default"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+          />
+        </svg>
+        Reset
+      </button>
     </div>
     <app-navbar></app-navbar>
   </div>

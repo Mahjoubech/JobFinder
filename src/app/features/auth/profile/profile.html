@@ -1,41 +1,53 @@
-<div class="bg-[#f3f2ef] min-h-screen font-sans">
+<div class="bg-[#f3f2ef] dark:bg-slate-900 min-h-screen font-sans transition-colors duration-300">
   <app-job-search></app-job-search>
 
   <div class="pt-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 animate-fade-in-up">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       <div class="md:col-span-8 space-y-6">
-        <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-            <h2 class="text-xl font-bold text-gray-900">Edit Profile</h2>
-            <p class="text-sm text-gray-500">Update your personal information and password</p>
+        <div
+          class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden transition-colors duration-300"
+        >
+          <div
+            class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 bg-gradient-to-r from-gray-50 to-white dark:from-slate-800 dark:to-slate-800"
+          >
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">Edit Profile</h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+              Update your personal information and password
+            </p>
           </div>
 
           <div class="p-6 space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label class="text-sm font-semibold text-gray-700">First Name</label>
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-300"
+                  >First Name</label
+                >
                 <input
                   [(ngModel)]="firstName"
                   [value]="firstName"
                   type="text"
-                  class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200"
+                  class="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200 dark:text-white"
                   placeholder="Enter first name"
                 />
               </div>
               <div class="space-y-2">
-                <label class="text-sm font-semibold text-gray-700">Last Name</label>
+                <label class="text-sm font-semibold text-gray-700 dark:text-gray-300"
+                  >Last Name</label
+                >
                 <input
                   [(ngModel)]="lastName"
                   [value]="email"
                   type="text"
-                  class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200"
+                  class="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200 dark:text-white"
                   placeholder="Enter last name"
                 />
               </div>
             </div>
 
             <div class="space-y-2">
-              <label class="text-sm font-semibold text-gray-700">Email Address</label>
+              <label class="text-sm font-semibold text-gray-700 dark:text-gray-300"
+                >Email Address</label
+              >
               <div class="relative">
                 <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +63,7 @@
                   [value]="email"
                   disabled
                   type="email"
-                  class="w-full pl-10 pr-4 py-2.5 bg-gray-100 border border-gray-200 rounded-lg text-gray-500 cursor-not-allowed font-medium"
+                  class="w-full pl-10 pr-4 py-2.5 bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-gray-500 dark:text-gray-400 cursor-not-allowed font-medium"
                 />
                 <span
                   class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 text-xs"
@@ -61,41 +73,52 @@
               </div>
             </div>
 
-            <div class="border-t border-gray-100 my-4"></div>
+            <div class="border-t border-gray-100 dark:border-slate-700 my-4"></div>
 
             <div class="space-y-4">
-              <h3 class="text-md font-bold text-gray-900">Change Password</h3>
+              <h3 class="text-md font-bold text-gray-900 dark:text-white">Change Password</h3>
 
               <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700">Current Password</label>
+                <label class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >Current Password</label
+                >
                 <input
                   [(ngModel)]="oldPassword"
                   type="password"
-                  class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200"
+                  class="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200 dark:text-white"
                   placeholder="Enter current password"
                 />
               </div>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                  <label class="text-sm font-medium text-gray-700">New Password</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >New Password</label
+                  >
                   <input
                     [(ngModel)]="newPassword"
                     type="password"
-                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200"
+                    class="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200 dark:text-white"
                     placeholder="Min. 8 characters"
                   />
                 </div>
                 <div class="space-y-2">
-                  <label class="text-sm font-medium text-gray-700">Confirm New Password</label>
+                  <label class="text-sm font-medium text-gray-700 dark:text-gray-300"
+                    >Confirm New Password</label
+                  >
                   <input
                     [(ngModel)]="confirmPassword"
                     type="password"
-                    class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200"
+                    class="w-full px-4 py-2.5 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all duration-200 dark:text-white"
                     placeholder="Re-enter new password"
-                    [class.border-red-500] = "newPassword && confirmPassword && newPassword !== confirmPassword"
+                    [class.border-red-500]="
+                      newPassword && confirmPassword && newPassword !== confirmPassword
+                    "
                   />
-                  <div *ngIf="newPassword && confirmPassword && newPassword !== confirmPassword" class="text-red-500 text-xs">
+                  <div
+                    *ngIf="newPassword && confirmPassword && newPassword !== confirmPassword"
+                    class="text-red-500 text-xs"
+                  >
                     Passwords do not match.
                   </div>
                 </div>
@@ -114,9 +137,9 @@
         </div>
 
         <div class="space-y-4">
-          <h3 class="text-lg font-bold text-gray-900 px-1">Applied Jobs</h3>
+          <h3 class="text-lg font-bold text-gray-900 dark:text-white px-1">Applied Jobs</h3>
           <div
-            class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden divide-y divide-gray-100"
+            class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden divide-y divide-gray-100 dark:divide-slate-700 transition-colors duration-300"
           >
             <app-job-card></app-job-card>
             <app-job-card></app-job-card>
@@ -127,17 +150,17 @@
 
       <div class="md:col-span-4 space-y-6">
         <div
-          class="bg-white rounded-xl border border-gray-200 shadow-sm p-6 text-center relative overflow-hidden group"
+          class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm p-6 text-center relative overflow-hidden group transition-colors duration-300"
         >
           <div
-            class="absolute inset-0 bg-gradient-to-br from-blue-50 to-pink-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            class="absolute inset-0 bg-gradient-to-br from-blue-50 to-pink-50 dark:from-slate-800 dark:to-slate-800 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           ></div>
           <div class="relative z-10">
             <div
               class="w-24 h-24 mx-auto bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full p-1 shadow-lg mb-4"
             >
               <div
-                class="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden"
+                class="w-full h-full bg-white dark:bg-slate-800 rounded-full flex items-center justify-center overflow-hidden"
               >
                 <img
                   src="https://i.pravatar.cc/150?u=jd"
@@ -146,42 +169,61 @@
                 />
               </div>
             </div>
-            <h2 class="text-xl font-bold text-gray-900">{{ firstName }} {{ lastName }}</h2>
-            <p class="text-sm text-gray-500 mb-6">{{ email }}</p>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+              {{ firstName }} {{ lastName }}
+            </h2>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">{{ email }}</p>
 
-            <div class="grid grid-cols-2 gap-4 border-t border-gray-100 pt-6">
+            <div class="grid grid-cols-2 gap-4 border-t border-gray-100 dark:border-slate-700 pt-6">
               <div
-                class="text-center p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+                class="text-center p-3 rounded-xl bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors"
               >
-                <p class="text-2xl font-bold text-purple-600">12</p>
-                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Favorites</p>
+                <p class="text-2xl font-bold text-purple-600 dark:text-purple-400">12</p>
+                <p
+                  class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide"
+                >
+                  Favorites
+                </p>
               </div>
               <div
-                class="text-center p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+                class="text-center p-3 rounded-xl bg-gray-50 dark:bg-slate-700 hover:bg-gray-100 dark:hover:bg-slate-600 transition-colors"
               >
-                <p class="text-2xl font-bold text-blue-600">5</p>
-                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Applied</p>
+                <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">5</p>
+                <p
+                  class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide"
+                >
+                  Applied
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-          <h3 class="font-bold text-gray-900 mb-4">Your Activity</h3>
+        <div
+          class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm p-6 transition-colors duration-300"
+        >
+          <h3 class="font-bold text-gray-900 dark:text-white mb-4">Your Activity</h3>
           <div class="space-y-4">
             <div class="flex items-start gap-3 text-sm">
               <div class="w-2 h-2 rounded-full bg-green-500 mt-1.5 flex-shrink-0"></div>
-              <p class="text-gray-600">
+              <p class="text-gray-600 dark:text-gray-300">
                 Applied to
-                <span class="font-semibold text-gray-900">Senior Frontend Developer</span> at Google
-                <span class="text-gray-400 text-xs block mt-0.5">2 hours ago</span>
+                <span class="font-semibold text-gray-900 dark:text-white"
+                  >Senior Frontend Developer</span
+                >
+                at Google
+                <span class="text-gray-400 dark:text-gray-500 text-xs block mt-0.5"
+                  >2 hours ago</span
+                >
               </p>
             </div>
             <div class="flex items-start gap-3 text-sm">
               <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 flex-shrink-0"></div>
-              <p class="text-gray-600">
-                Saved <span class="font-semibold text-gray-900">UX Designer</span> at Spotify
-                <span class="text-gray-400 text-xs block mt-0.5">1 day ago</span>
+              <p class="text-gray-600 dark:text-gray-300">
+                Saved
+                <span class="font-semibold text-gray-900 dark:text-white">UX Designer</span> at
+                Spotify
+                <span class="text-gray-400 dark:text-gray-500 text-xs block mt-0.5">1 day ago</span>
               </p>
             </div>
           </div>

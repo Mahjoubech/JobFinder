@@ -1,6 +1,16 @@
 <div
   *ngIf="job"
-  class="p-4 border-b border-gray-100 dark:border-slate-700 hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100 dark:hover:from-slate-800 dark:hover:to-slate-700 cursor-pointer transition-all duration-300 relative group border-l-4 border-transparent hover:border-l-purple-500 dark:hover:border-l-purple-400 animate-fade-in-up"
+  [class.bg-gradient-to-r]="isActive"
+  [class.from-purple-50]="isActive"
+  [class.to-purple-100]="isActive"
+  [class.dark:from-slate-800]="isActive"
+  [class.dark:to-slate-700]="isActive"
+  [class.border-gray-100]="!isActive"
+  [class.dark:border-l-purple-400] = "isActive"
+  [class.border-l-purple-400] = "isActive"
+class="p-4 border-b border-gray-100 dark:border-slate-700
+hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100
+ dark:hover:from-slate-800 dark:hover:to-slate-700 cursor-pointer transition-all duration-300 relative group border-l-4 border-transparent hover:border-l-purple-500 dark:hover:border-l-purple-400 animate-fade-in-up"
 >
   <div class="flex gap-4">
     <!-- Company Logo -->
@@ -17,6 +27,9 @@
 
     <div class="flex-1 min-w-0">
       <h3
+        [class.text-purple-600]="isActive"
+        [class.dark:group:text-purple-400]="isActive"
+
         class="text-base font-bold text-gray-900 dark:text-white truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300"
       >
         {{ job?.name ?? 'Untitled Job' }}

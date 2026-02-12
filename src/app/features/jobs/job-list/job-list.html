@@ -2,7 +2,8 @@
   class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar transition-colors duration-300"
   (scroll)="onScroll($event)"
 >
-  <app-job-card *ngFor="let job of jobs; trackBy: trackByJob" [job]="job" (click)="selectedJob(job)" class="cursor-pointer block"></app-job-card>
+  <app-job-card *ngFor="let job of jobs; trackBy: trackByJob" [job]="job" (click)="selectedJob(job)" [isActive]="job.id === selectedJobId"
+ class="cursor-pointer block"></app-job-card>
   <div
     *ngIf="!loading() && jobs.length === 0"
     class="flex flex-col items-center justify-center h-full text-center p-8"

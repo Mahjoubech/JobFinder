@@ -18,6 +18,7 @@ page = 0;
 limit = 8 ;
 loading  = signal(false);
 allLoaded =  signal(false) ;
+  selectedJobId:number | null = null;
   searchKeyword = '';
 constructor(protected jobService : JobService) {}
   ngOnInit(): void {
@@ -31,6 +32,16 @@ constructor(protected jobService : JobService) {}
     this.jobService.search('' , '' , 0);
     this.jobService.searchKeyword$.subscribe(keyword => {
       this.searchKeyword = keyword;});
+    this.jobService.selectedJob$.subscribe(job => {
+      this.selectedJobId = job ? job.id : null;
+    });
+
+    if (this.jobs.length > 0 && !this.selectedJobId) {
+      this.selectJob(this.jobs[0]);
+    }
+  }
+  selectJob(job: Job) {
+    this.jobService.setSelectedJob(job);
   }
   loadJobs(){
   if (this.loading() || this.allLoaded()) return;

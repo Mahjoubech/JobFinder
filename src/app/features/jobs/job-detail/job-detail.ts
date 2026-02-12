@@ -19,8 +19,8 @@ export class JobDetail implements OnInit{
   ngOnInit(): void {
         this.jobService.selectedJob$.subscribe(
           job => {
-            console.log(job);
             this.job = job;
+            this.isFavorite = false;
           }
         )
     }

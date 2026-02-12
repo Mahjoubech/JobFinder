@@ -14,6 +14,7 @@ import {CompanyInitialsPipe} from '../../../shared/pipes/company-initials-pipe';
 })
 export class JobCard {
   @Input() job!: Job;
+  @Input() isActive: boolean = false ;
   isFavorite = false;
 
   toggleFavorite() {

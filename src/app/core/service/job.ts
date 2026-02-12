@@ -2,15 +2,23 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, finalize, map, Observable} from 'rxjs';
 export interface Job{
-  id:number;
+  id: number;
   name: string;
-  company : {
-    name:string;
-    id:number;
-  }
-  locations: {name: string}[];
-  levels: {name:string}[];
-  publication_date:string;
+  type: string;
+  publication_date: string;
+  short_name: string;
+  model_type: string;
+  contents: string; // HTML content
+  locations: { name: string }[];
+  categories: { name: string }[];
+  levels: { name: string; short_name: string }[];
+  tags: { name: string; short_name: string }[];
+  refs: { landing_page: string };
+  company: {
+    id: number;
+    short_name: string;
+    name: string;
+  };
 }
 @Injectable({
   providedIn: 'root',
@@ -23,6 +31,8 @@ export class JobService  {
   loading$ = this.loadingSubject.asObservable();
   private searchKeywordSubject = new BehaviorSubject<string>('');
   searchKeyword$ = this.searchKeywordSubject.asObservable();
+  private selectedJobSubject = new BehaviorSubject<Job | null>(null)
+  selectedJob$ = this.selectedJobSubject.asObservable();
   constructor(private http: HttpClient) {}
   private originalJobs: Job[] = [];
 
@@ -36,8 +46,9 @@ export class JobService  {
       })
     );
   }
-
-  // Filter Methods
+  setSelectedJob(job : Job){
+    this.selectedJobSubject.next(job);
+  }
   filterJobs(criteria: { date?: string, level?: string, company?: string, remote?: boolean, easyApply?: boolean }): void {
     let filtered = [...this.originalJobs];
 

@@ -1,17 +1,36 @@
 <div
-  class="bg-white rounded-xl border border-gray-200 h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar"
+  class="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 h-[calc(100vh-8rem)] overflow-y-auto no-scrollbar transition-colors duration-300"
   (scroll)="onScroll($event)"
 >
-
-  <app-job-card
-    *ngFor="let job of jobs; trackBy: trackByJob"
-    [job]="job"
-  ></app-job-card>
+  <app-job-card *ngFor="let job of jobs; trackBy: trackByJob" [job]="job"></app-job-card>
+  <div
+    *ngIf="!loading() && jobs.length === 0 && searchKeyword"
+    class="flex flex-col items-center justify-center h-full text-center p-8"
+  >
+    <div class="bg-gray-50 dark:bg-slate-800 rounded-full p-4 mb-4">
+      <svg
+        class="w-8 h-8 text-gray-400 dark:text-gray-500"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        ></path>
+      </svg>
+    </div>
+    <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-1">
+      No jobs found for "{{ searchKeyword }}"
+    </h3>
+    <p class="text-gray-500 dark:text-gray-400 text-sm">
+      Try checking for typos or using different keywords.
+    </p>
+  </div>
   <app-loader *ngIf="loading()"></app-loader>
-
-  <div *ngIf="allLoaded()" class="p-4 text-center text-gray-400 text-sm">
+  <div *ngIf="allLoaded()" class="p-4 text-center text-gray-400 dark:text-gray-600 text-sm">
     No more jobs to load.
   </div>
-
 </div>
-

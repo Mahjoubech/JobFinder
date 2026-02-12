@@ -18,9 +18,20 @@ page = 0;
 limit = 8 ;
 loading  = signal(false);
 allLoaded =  signal(false) ;
+  searchKeyword = '';
 constructor(protected jobService : JobService) {}
   ngOnInit(): void {
-  this.loadJobs();
+  // this.loadJobs();
+    this.jobService.jobs$.subscribe(jobs => {
+      this.jobs = jobs;
+    });
+    this.jobService.loading$.subscribe(isLoading => {
+      this.loading.set(isLoading);
+    });
+
+    this.jobService.search('' , '' , 0);
+    this.jobService.searchKeyword$.subscribe(keyword => {
+      this.searchKeyword = keyword;});
   }
   loadJobs(){
   if (this.loading() || this.allLoaded()) return;

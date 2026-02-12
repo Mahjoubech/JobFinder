@@ -1,44 +1,44 @@
-<div
-  class="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 h-[calc(100vh-8rem)] overflow-y-auto w-full sticky top-24 no-scrollbar shadow-sm animate-fade-in-up transition-colors duration-300"
+<div *ngIf="job"
+     class="bg-white dark:bg-slate-900 rounded-xl border border-gray-100 dark:border-slate-800 h-[calc(100vh-8rem)] overflow-y-auto w-full sticky top-24 no-scrollbar shadow-sm animate-fade-in-up transition-colors duration-300"
 >
   <div
     class="p-8 border-b border-gray-50 dark:border-slate-800 relative bg-gradient-to-b from-white to-gray-50/30 dark:from-slate-900 dark:to-slate-800/30"
   >
-    <div
-      class="h-32 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl mb-8 overflow-hidden relative group"
-    >
-      <div
-        class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-      ></div>
-      <!--      <img-->
-      <!--        src="https://logo.clearbit.com/google.com"-->
-      <!--        class="absolute -bottom-6 left-8 w-20 h-20 bg-white rounded-xl p-2 shadow-lg border border-gray-100 transform transition-transform duration-300 group-hover:scale-105"-->
-      <!--        alt="Company Logo"-->
-      <!--      />-->
-    </div>
-
     <div class="mt-10 pl-2">
+      <div
+        class="h-32 rounded-xl mb-8 overflow-hidden relative group flex items-center justify-center transition-colors duration-300"
+        [class]="job?.company?.name | logoBackground"
+      >
+      <span class="text-5xl font-bold opacity-80">
+          {{ job?.company?.name }}
+      </span>
+
+        <div
+          class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        ></div>
+      </div>
       <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">
-        Senior Frontend Developer
+        {{job?.name ?? 'Untitled Job'}}
       </h1>
       <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-6 flex-wrap">
         <a href="#" class="font-semibold text-gray-900 dark:text-gray-200 hover:underline"
-          >Google</a
+        >{{job?.company?.name ?? 'Unknown Company' }}</a
         >
         <span class="text-gray-300 dark:text-gray-600">•</span>
-        <span
-          class="bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded text-xs font-medium"
-          >Casablanca, Morocco (Hybrid)</span
+        <span *ngIf="job?.locations && job.locations.length > 0; "
+              class="bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded text-xs font-medium"
+        >{{ job.locations[0].name }}</span
         >
         <span class="text-gray-300">•</span>
         <span class="text-green-600 font-medium flex items-center gap-1">
           <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-          Posted 2 hours ago
+          {{ job?.publication_date | date:'mediumDate' }}
         </span>
       </div>
 
       <div class="flex items-center gap-3 mb-2">
-        <button
+        <a
+          target="_blank"
           class="px-8 py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg shadow-purple-500/20 flex items-center gap-2 transform hover:-translate-y-0.5"
         >
           <span>Apply Now</span>
@@ -50,7 +50,7 @@
               d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
             ></path>
           </svg>
-        </button>
+        </a>
         <button
           (click)="toggleFavorite()"
           class="px-6 py-2.5 border font-semibold rounded-full transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2 group"
@@ -58,30 +58,30 @@
           [class.text-red-500]="isFavorite"
           [class.bg-red-50]="isFavorite"
           [class.dark:bg-red-900/20]="isFavorite"
-          [class.border-purple-600]="!isFavorite"
-          [class.text-purple-600]="!isFavorite"
-          [class.dark:text-purple-400]="!isFavorite"
-          [class.dark:border-purple-400]="!isFavorite"
-          [class.hover:bg-purple-50]="!isFavorite"
-          [class.dark:hover:bg-purple-900/20]="!isFavorite"
+        [class.border-purple-600]="!isFavorite"
+        [class.text-purple-600]="!isFavorite"
+        [class.dark:text-purple-400]="!isFavorite"
+        [class.dark:border-purple-400]="!isFavorite"
+        [class.hover:bg-purple-50]="!isFavorite"
+        [class.dark:hover:bg-purple-900/20]="!isFavorite"
         >
-          <svg
-            class="w-5 h-5 transition-transform duration-300"
-            [class.fill-current]="isFavorite"
-            [class.scale-110]="isFavorite"
-            [class.group-hover:scale-110]="!isFavorite"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-            fill="none"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            />
-          </svg>
-          <span>{{ isFavorite ? 'Saved' : 'Save' }}</span>
+        <svg
+          class="w-5 h-5 transition-transform duration-300"
+          [class.fill-current]="isFavorite"
+          [class.scale-110]="isFavorite"
+          [class.group-hover:scale-110]="!isFavorite"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
+        </svg>
+        <span>{{ isFavorite ? 'Saved' : 'Save' }}</span>
         </button>
       </div>
     </div>
@@ -92,129 +92,42 @@
       <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
         About the job
       </h3>
-      <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-[15px]">
-        We are looking for a Senior Frontend Developer to join our team in Casablanca. You will be
-        responsible for building high-quality, scalable web applications using Angular and Tailwind
-        CSS.
-      </p>
+      <!-- Dynamic Content -->
+      <div [innerHTML]="job?.contents" class="prose dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 leading-relaxed text-[15px]"></div>
+
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div
           class="bg-gray-50 dark:bg-slate-800 rounded-lg p-4 border border-gray-100 dark:border-slate-700"
         >
           <p class="text-gray-500 text-xs uppercase font-bold mb-1">Experience</p>
-          <p class="text-gray-900 dark:text-white font-medium">5+ years</p>
+          <div class="flex flex-wrap gap-1">
+            <span *ngFor="let level of job?.levels" class="text-gray-900 dark:text-white font-medium">{{ level.name }}</span>
+          </div>
         </div>
         <div
           class="bg-gray-50 dark:bg-slate-800 rounded-lg p-4 border border-gray-100 dark:border-slate-700"
         >
           <p class="text-gray-500 text-xs uppercase font-bold mb-1">Employment Type</p>
-          <p class="text-gray-900 dark:text-white font-medium">Full-time</p>
+          <p class="text-gray-900 dark:text-white font-medium capitalize">{{ job?.type }}</p>
         </div>
         <div
           class="bg-gray-50 dark:bg-slate-800 rounded-lg p-4 border border-gray-100 dark:border-slate-700 md:col-span-2"
         >
-          <p class="text-gray-500 text-xs uppercase font-bold mb-1">Salary</p>
-          <p class="text-gray-900 dark:text-white font-medium">Competitive based on experience</p>
+          <p  class="text-gray-500 text-xs uppercase font-bold mb-1">Categories</p>
+          <div *ngIf="job?.categories && job.categories.length > 0" class="flex flex-wrap gap-1">
+            <span *ngFor="let cat of job?.categories" class="text-gray-900 dark:text-white font-medium mr-2">{{ cat.name }}</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Responsibilities</h3>
-      <ul class="space-y-3">
-        <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-          <svg
-            class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            ></path>
-          </svg>
-          <span class="leading-relaxed"
-            >Develop new user-facing features using Angular formatted with Tailwind CSS.</span
-          >
-        </li>
-        <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-          <svg
-            class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            ></path>
-          </svg>
-          <span class="leading-relaxed">Build reusable code and libraries for future use.</span>
-        </li>
-        <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-          <svg
-            class="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            ></path>
-          </svg>
-          <span class="leading-relaxed">Ensure the technical feasibility of UI/UX designs.</span>
-        </li>
-        <li class="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-          <svg
-            class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M5 13l4 4L19 7"
-            ></path>
-          </svg>
-          <span class="leading-relaxed"
-            >Optimize application for maximum speed and scalability.</span
-          >
-        </li>
-      </ul>
-    </section>
-
-    <section>
+    <!-- Skills Section mapped to job.tags -->
+    <section *ngIf="job?.tags && job.tags.length > 0">
       <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Skills</h3>
       <div class="flex flex-wrap gap-2">
-        <span
-          class="px-4 py-1.5 bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300 rounded-full text-sm font-medium border border-purple-100 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors cursor-default"
-          >Angular</span
-        >
-        <span
-          class="px-4 py-1.5 bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300 rounded-full text-sm font-medium border border-purple-100 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors cursor-default"
-          >TypeScript</span
-        >
-        <span
-          class="px-4 py-1.5 bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300 rounded-full text-sm font-medium border border-purple-100 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors cursor-default"
-          >Tailwind CSS</span
-        >
-        <span
-          class="px-4 py-1.5 bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300 rounded-full text-sm font-medium border border-purple-100 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors cursor-default"
-          >RxJS</span
-        >
-        <span
-          class="px-4 py-1.5 bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300 rounded-full text-sm font-medium border border-purple-100 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors cursor-default"
-          >Git</span
+        <span *ngFor="let tag of job?.tags"
+              class="px-4 py-1.5 bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-300 rounded-full text-sm font-medium border border-purple-100 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition-colors cursor-default"
+        >{{ tag.name }}</span
         >
       </div>
     </section>
@@ -224,13 +137,13 @@
     >
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-bold text-gray-900 dark:text-white">About Google</h3>
-        <button class="text-purple-600 dark:text-purple-400 text-sm font-semibold hover:underline">
-          Follow
-        </button>
+        <a [href]="job?.refs?.landing_page" target="_blank" class="text-purple-600 dark:text-purple-400 text-sm font-semibold hover:underline flex items-center gap-1">
+          Read more about {{ job?.company?.name }}
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
       </div>
       <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-        Google's mission is to organize the world's information and make it universally accessible
-        and useful.
+        {{ companyDescriptionSnippet }}
       </p>
     </section>
   </div>

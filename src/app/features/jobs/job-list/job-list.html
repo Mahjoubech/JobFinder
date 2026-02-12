@@ -4,7 +4,7 @@
 >
   <app-job-card *ngFor="let job of jobs; trackBy: trackByJob" [job]="job"></app-job-card>
   <div
-    *ngIf="!loading() && jobs.length === 0 && searchKeyword"
+    *ngIf="!loading() && jobs.length === 0"
     class="flex flex-col items-center justify-center h-full text-center p-8"
   >
     <div class="bg-gray-50 dark:bg-slate-800 rounded-full p-4 mb-4">
@@ -23,10 +23,11 @@
       </svg>
     </div>
     <h3 class="text-lg font-medium text-gray-900 dark:text-white mb-1">
-      No jobs found for "{{ searchKeyword }}"
+      <span *ngIf="searchKeyword">No jobs found for "{{ searchKeyword }}"</span>
+      <span *ngIf="!searchKeyword">No jobs found matching your criteria</span>
     </h3>
     <p class="text-gray-500 dark:text-gray-400 text-sm">
-      Try checking for typos or using different keywords.
+      Try checking for typos, using different keywords, or adjusting your filters.
     </p>
   </div>
   <app-loader *ngIf="loading()"></app-loader>

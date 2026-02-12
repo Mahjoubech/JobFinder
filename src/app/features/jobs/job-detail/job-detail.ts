@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './job-detail.css',
 })
 export class JobDetail {
+  isFavorite = false;
 
+  toggleFavorite() {
+    this.isFavorite = !this.isFavorite;
+  }
 }

@@ -62,4 +62,8 @@ constructor(protected jobService : JobService) {}
   trackByJob(index: number, job: Job): number {
     return job.id;
   }
+
+  selectedJob(job:Job){
+    console.log(this.jobService.setSelectedJob(job));
+  }
 }

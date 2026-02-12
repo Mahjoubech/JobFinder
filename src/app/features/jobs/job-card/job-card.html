@@ -7,10 +7,10 @@
     <div class="flex-shrink-0">
       <div
         class="w-12 h-12 rounded-lg shadow-sm border border-gray-100 dark:border-slate-600 flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105"
-        [ngClass]="getLogoBackground(job?.company?.name)"
+        [ngClass]="job?.company?.name | logoBackground"
       >
         <span class="text-lg font-bold">
-          {{ getCompanyInitials(job?.company?.name) }}
+          {{job?.company?.name | companyInitials}}
         </span>
       </div>
     </div>

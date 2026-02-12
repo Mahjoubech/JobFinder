@@ -8,7 +8,7 @@ import {Home} from './features/home/home';
 
 export const routes: Routes = [
   {path : "register" , component: Register},
-  {path: "dashboard" , component: Home},
+  {path: "" , component: Home},
   {path:'login' , component: Login},
   {path:'profile' , component:Profile }
 ];

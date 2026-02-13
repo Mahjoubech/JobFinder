@@ -6,11 +6,9 @@
   [class.dark:from-slate-800]="isActive"
   [class.dark:to-slate-700]="isActive"
   [class.border-gray-100]="!isActive"
-  [class.dark:border-l-purple-400] = "isActive"
-  [class.border-l-purple-400] = "isActive"
-class="p-4 border-b border-gray-100 dark:border-slate-700
-hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100
- dark:hover:from-slate-800 dark:hover:to-slate-700 cursor-pointer transition-all duration-300 relative group border-l-4 border-transparent hover:border-l-purple-500 dark:hover:border-l-purple-400 animate-fade-in-up"
+  [class.dark:border-l-purple-400]="isActive"
+  [class.border-l-purple-400]="isActive"
+  class="p-4 border-b border-gray-100 dark:border-slate-700 hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100 dark:hover:from-slate-800 dark:hover:to-slate-700 cursor-pointer transition-all duration-300 relative group border-l-4 border-transparent hover:border-l-purple-500 dark:hover:border-l-purple-400 animate-fade-in-up"
 >
   <div class="flex gap-4">
     <!-- Company Logo -->
@@ -20,7 +18,7 @@ hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100
         [ngClass]="job?.company?.name | logoBackground"
       >
         <span class="text-lg font-bold">
-          {{job?.company?.name | companyInitials}}
+          {{ job?.company?.name | companyInitials }}
         </span>
       </div>
     </div>
@@ -29,7 +27,6 @@ hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100
       <h3
         [class.text-purple-600]="isActive"
         [class.dark:group:text-purple-400]="isActive"
-
         class="text-base font-bold text-gray-900 dark:text-white truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300"
       >
         {{ job?.name ?? 'Untitled Job' }}
@@ -62,7 +59,9 @@ hover:bg-gradient-to-r hover:from-purple-50 hover:to-purple-100
           <ng-template #noLevel><span>Entry Level</span></ng-template>
         </div>
         <!-- Date -->
-        <span class="text-xs text-gray-400 dark:text-gray-500">{{ job?.publication_date }}</span>
+        <span class="text-xs text-gray-400 dark:text-gray-500">{{
+          job?.publication_date | date: 'mediumDate'
+        }}</span>
       </div>
 
       <!-- Favorite Button (Moved to Bottom Right) -->

@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, OnChanges, OnInit, signal, SimpleChanges} from '@angular/core';
 import { JobCard } from '../job-card/job-card';
 import {CommonModule} from '@angular/common';
 import {Job, JobService} from '../../../core/service/job';
@@ -12,7 +12,7 @@ import {delay} from 'rxjs';
   templateUrl: './job-list.html',
   styleUrl: './job-list.css',
 })
-export class JobList implements OnInit{
+export class JobList implements OnInit , OnChanges{
 jobs:Job[] = [];
 page = 0;
 limit = 8 ;
@@ -24,7 +24,11 @@ constructor(protected jobService : JobService) {}
   ngOnInit(): void {
     this.jobService.jobs$.subscribe(jobs => {
       this.jobs = jobs;
+      if (this.jobs.length > 0) {
+        this.selectJob(this.jobs[0]);
+      }
     });
+    this.jobService.search('', '', 0);
     this.jobService.loading$.subscribe(isLoading => {
       this.loading.set(isLoading);
     });
@@ -37,6 +41,11 @@ constructor(protected jobService : JobService) {}
     });
 
     if (this.jobs.length > 0 && !this.selectedJobId) {
+      this.selectJob(this.jobs[0]);
+    }
+  }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['jobs'] && this.jobs.length > 0 && !this.selectedJobId) {
       this.selectJob(this.jobs[0]);
     }
   }

@@ -1,0 +1,338 @@
+<div class="bg-gray-50 dark:bg-slate-900 font-sans min-h-screen">
+  <!-- Navbar Fixed at Top -->
+  <div
+    class="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-slate-900/90 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors duration-300"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+      <a routerLink="/" class="flex-shrink-0 flex items-center gap-2">
+        <div
+          class="bg-gradient-to-br from-purple-600 via-fuchsia-500 to-pink-500 rounded-lg p-0.5 shadow-md"
+        >
+          <div class="bg-white dark:bg-slate-900 rounded-[6px] p-1">
+            <svg class="w-8 h-8" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="logoNavGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color: #9333ea" />
+                  <stop offset="50%" style="stop-color: #c084fc" />
+                  <stop offset="100%" style="stop-color: #e879f9" />
+                </linearGradient>
+              </defs>
+              <rect x="8" y="22" width="48" height="32" rx="6" fill="url(#logoNavGrad)" />
+              <path
+                d="M22 22 V16 C22 14 24 12 26 12 H38 C40 12 42 14 42 16 V22"
+                stroke="url(#logoNavGrad)"
+                stroke-width="4"
+                stroke-linecap="round"
+              />
+              <circle cx="32" cy="38" r="4" fill="white" />
+              <rect x="30" y="38" width="4" height="8" rx="2" fill="white" />
+              <circle cx="48" cy="18" r="8" fill="url(#logoNavGrad)" />
+              <circle cx="48" cy="18" r="4" fill="white" />
+              <line
+                x1="51"
+                y1="21"
+                x2="54"
+                y2="24"
+                stroke="white"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <span
+          class="text-xl font-bold bg-gradient-to-r from-purple-600 via-fuchsia-500 to-pink-500 bg-clip-text text-transparent hidden md:block"
+          >JobFinder</span
+        >
+      </a>
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+
+  <!-- Main Content (padded for fixed navbar) -->
+  <div class="pt-24 pb-12 animate-fade-in">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight mb-2">
+          My Jobs
+        </h1>
+        <p class="text-gray-500 dark:text-gray-400">
+          Manage your saved jobs and track your applications.
+        </p>
+      </div>
+
+      <!-- Tabs -->
+      <div
+        class="flex items-center gap-8 border-b border-gray-200 dark:border-slate-700 mb-8 overflow-x-auto no-scrollbar"
+      >
+        <a
+          [routerLink]="['/my-jobs', 'saved']"
+          routerLinkActive="text-purple-600 dark:text-purple-400"
+          [class.text-purple-600]="activeTab() === 'saved'"
+          [class.dark:text-purple-400]="activeTab() === 'saved'"
+          [class.text-gray-500]="activeTab() !== 'saved'"
+          [class.dark:text-gray-400]="activeTab() !== 'saved'"
+          [class.hover:text-gray-700]="activeTab() !== 'saved'"
+          [class.dark:hover:text-gray-300]="activeTab() !== 'saved'"
+          class="pb-4 text-sm font-medium transition-all relative whitespace-nowrap cursor-pointer hover:no-underline"
+        >
+          Saved Jobs
+          <span
+            class="ml-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 py-0.5 px-2 rounded-full text-xs"
+          >
+            {{ savedJobs().length }}
+          </span>
+          <span
+            *ngIf="activeTab() === 'saved'"
+            class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 dark:bg-purple-400 absolute-fill"
+          ></span>
+        </a>
+
+        <a
+          [routerLink]="['/my-jobs', 'applied']"
+          routerLinkActive="text-purple-600 dark:text-purple-400"
+          [class.text-purple-600]="activeTab() === 'applied'"
+          [class.dark:text-purple-400]="activeTab() === 'applied'"
+          [class.text-gray-500]="activeTab() !== 'applied'"
+          [class.dark:text-gray-400]="activeTab() !== 'applied'"
+          [class.hover:text-gray-700]="activeTab() !== 'applied'"
+          [class.dark:hover:text-gray-300]="activeTab() !== 'applied'"
+          class="pb-4 text-sm font-medium transition-all relative whitespace-nowrap cursor-pointer hover:no-underline"
+        >
+          Applications
+          <span
+            class="ml-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 py-0.5 px-2 rounded-full text-xs"
+          >
+            {{ getApplicationsByStatus('en_attente').length }}
+          </span>
+          <span
+            *ngIf="activeTab() === 'applied'"
+            class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 dark:bg-purple-400 absolute-fill"
+          ></span>
+        </a>
+
+        <a
+          [routerLink]="['/my-jobs', 'interviews']"
+          routerLinkActive="text-purple-600 dark:text-purple-400"
+          [class.text-purple-600]="activeTab() === 'interviews'"
+          [class.dark:text-purple-400]="activeTab() === 'interviews'"
+          [class.text-gray-500]="activeTab() !== 'interviews'"
+          [class.dark:text-gray-400]="activeTab() !== 'interviews'"
+          [class.hover:text-gray-700]="activeTab() !== 'interviews'"
+          [class.dark:hover:text-gray-300]="activeTab() !== 'interviews'"
+          class="pb-4 text-sm font-medium transition-all relative whitespace-nowrap cursor-pointer hover:no-underline"
+        >
+          Interviews
+          <span
+            class="ml-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 py-0.5 px-2 rounded-full text-xs"
+          >
+            {{ getApplicationsByStatus('accepted').length }}
+          </span>
+          <span
+            *ngIf="activeTab() === 'interviews'"
+            class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 dark:bg-purple-400 absolute-fill"
+          ></span>
+        </a>
+
+        <a
+          [routerLink]="['/my-jobs', 'archived']"
+          routerLinkActive="text-purple-600 dark:text-purple-400"
+          [class.text-purple-600]="activeTab() === 'archived'"
+          [class.dark:text-purple-400]="activeTab() === 'archived'"
+          [class.text-gray-500]="activeTab() !== 'archived'"
+          [class.dark:text-gray-400]="activeTab() !== 'archived'"
+          [class.hover:text-gray-700]="activeTab() !== 'archived'"
+          [class.dark:hover:text-gray-300]="activeTab() !== 'archived'"
+          class="pb-4 text-sm font-medium transition-all relative whitespace-nowrap cursor-pointer hover:no-underline"
+        >
+          Archived
+          <span
+            class="ml-2 bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-gray-300 py-0.5 px-2 rounded-full text-xs"
+          >
+            {{ getApplicationsByStatus('refused').length }}
+          </span>
+          <span
+            *ngIf="activeTab() === 'archived'"
+            class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-600 dark:bg-purple-400 absolute-fill"
+          ></span>
+        </a>
+      </div>
+
+      <!-- Content Area -->
+      <div class="min-h-[400px]">
+        <!-- SAVED JOBS (Favorites) -->
+        <div *ngIf="activeTab() === 'saved'" class="space-y-4 animate-fade-in-up">
+          <div *ngIf="savedJobs().length === 0" class="text-center py-12">
+            <p class="text-gray-500 dark:text-gray-400">You haven't saved any jobs yet.</p>
+            <a routerLink="/" class="text-purple-600 font-medium hover:underline mt-2 inline-block"
+              >Browse Jobs</a
+            >
+          </div>
+
+          <div
+            *ngFor="let job of savedJobs()"
+            class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group relative"
+          >
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex gap-4">
+                <div
+                  class="w-12 h-12 rounded-lg flex items-center justify-center text-xl font-bold text-white shrink-0"
+                  [class]="job.company.name | logoBackground"
+                >
+                  {{ job.company.name.charAt(0).toUpperCase() }}
+                </div>
+                <div>
+                  <h3
+                    class="font-bold text-lg text-gray-900 dark:text-white group-hover:text-purple-600 transition-colors"
+                  >
+                    <a [routerLink]="['/']" [queryParams]="{ jobId: job.id }">{{ job.name }}</a>
+                  </h3>
+                  <p class="text-gray-600 dark:text-gray-400 text-sm mb-1">
+                    {{ job.company.name }}
+                  </p>
+                  <p class="text-gray-500 dark:text-gray-500 text-xs">
+                    {{ job.locations[0]?.name }}
+                  </p>
+                  <p class="text-gray-400 dark:text-gray-600 text-xs mt-2">Saved locally</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  (click)="apply(job)"
+                  class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-full transition-colors"
+                >
+                  Apply Now
+                </button>
+                <button
+                  (click)="removeFavorite(job)"
+                  class="p-2 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors"
+                  title="Remove from favorites"
+                >
+                  <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <path
+                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- APPLICATIONS LISTS (Applied, Interviews, Archived) -->
+        <div *ngIf="activeTab() !== 'saved'" class="space-y-4 animate-fade-in-up">
+          <ng-container
+            *ngIf="getApplicationsByStatus(getCurrentStatusFilter()).length === 0; else appList"
+          >
+            <div class="text-center py-12">
+              <p class="text-gray-500 dark:text-gray-400">
+                No applications found in this category.
+              </p>
+            </div>
+          </ng-container>
+
+          <ng-template #appList>
+            <div
+              *ngFor="let app of getApplicationsByStatus(getCurrentStatusFilter())"
+              class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex gap-4">
+                  <div
+                    class="w-12 h-12 rounded-lg flex items-center justify-center text-xl font-bold text-white shrink-0"
+                    [class]="app.company | logoBackground"
+                  >
+                    {{ app.company.charAt(0).toUpperCase() }}
+                  </div>
+                  <div>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-0.5">
+                      {{ app.title }}
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-1">{{ app.company }}</p>
+                    <p class="text-gray-500 dark:text-gray-500 text-xs">{{ app.location }}</p>
+                    <p class="text-gray-400 dark:text-gray-600 text-xs mt-2">
+                      Applied on {{ app.dateAdded | date: 'mediumDate' }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <!-- Status Dropdown -->
+                  <div class="relative">
+                    <select
+                      [value]="app.status"
+                      (change)="updateStatus(app, $event)"
+                      class="appearance-none pl-3 pr-8 py-1 rounded-full text-xs font-medium border focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                      [ngClass]="{
+                        'bg-yellow-50 text-yellow-700 border-yellow-200':
+                          app.status === 'en_attente',
+                        'bg-green-50 text-green-700 border-green-200': app.status === 'accepted',
+                        'bg-red-50 text-red-700 border-red-200': app.status === 'refused',
+                      }"
+                    >
+                      <option value="en_attente">Applied</option>
+                      <option value="accepted">Interview</option>
+                      <option value="refused">Refused</option>
+                    </select>
+                    <div
+                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-current opacity-50"
+                    >
+                      <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M19 9l-7 7-7-7"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <!-- View Details Button -->
+                  <a
+                    [routerLink]="['/jobs', app.offerId]"
+                    class="p-2 text-gray-400 hover:text-purple-600 hover:bg-purple-50 dark:hover:bg-slate-700 rounded-full transition-colors"
+                    title="View Job Details"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  </a>
+
+                  <!-- Delete Button -->
+                  <button
+                    (click)="deleteApplication(app)"
+                    class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-slate-700 rounded-full transition-colors"
+                    title="Delete Application"
+                  >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

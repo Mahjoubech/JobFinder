@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {Navbar} from '../../../shared/components/navbar/navbar';
@@ -12,14 +12,27 @@ import {JobService} from '../../../core/service/job';
   styleUrl: './job-search.css',
 })
 export class JobSearch {
+  @Input() showSearch = true;
+  @Input() explicitSearch = false;
+  @Output() searchTrigger = new EventEmitter<string>();
+  @Output() resetTrigger = new EventEmitter<void>();
+
   keyword = "";
   constructor(private  jobService : JobService) {}
   onSearch(){
-    this.jobService.search(this.keyword);
+    if (this.explicitSearch) {
+      this.searchTrigger.emit(this.keyword);
+    } else {
+      this.jobService.search(this.keyword);
+    }
   }
 
   onReset() {
     this.keyword = '';
-    this.jobService.resetSearch();
+    if (this.explicitSearch) {
+      this.resetTrigger.emit();
+    } else {
+      this.jobService.resetSearch();
+    }
   }
 }

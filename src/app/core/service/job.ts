@@ -1,25 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, finalize, map, Observable} from 'rxjs';
-export interface Job{
-  id: number;
-  name: string;
-  type: string;
-  publication_date: string;
-  short_name: string;
-  model_type: string;
-  contents: string; // HTML content
-  locations: { name: string }[];
-  categories: { name: string }[];
-  levels: { name: string; short_name: string }[];
-  tags: { name: string; short_name: string }[];
-  refs: { landing_page: string };
-  company: {
-    id: number;
-    short_name: string;
-    name: string;
-  };
-}
+import {Job} from '../models/Job';
+export type {Job};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -33,7 +17,16 @@ export class JobService  {
   searchKeyword$ = this.searchKeywordSubject.asObservable();
   private selectedJobSubject = new BehaviorSubject<Job | null>(null)
   selectedJob$ = this.selectedJobSubject.asObservable();
-  constructor(private http: HttpClient) {}
+  private favoritesSubject = new BehaviorSubject<Job[]>([]);
+  favorites$ = this.favoritesSubject.asObservable();
+  
+  constructor(private http: HttpClient) {
+    const stored = localStorage.getItem('favorites');
+    if (stored) {
+      this.favoritesSubject.next(JSON.parse(stored));
+    }
+  }
+
   private originalJobs: Job[] = [];
 
   getJobs(page: number = 0, limit: number = 20): Observable<Job[]> {
@@ -46,9 +39,27 @@ export class JobService  {
       })
     );
   }
-  setSelectedJob(job : Job){
+  setSelectedJob(job : Job | null){
     this.selectedJobSubject.next(job);
   }
+
+  toggleFavorite(job: Job) {
+    const current = this.favoritesSubject.value;
+    const index = current.findIndex(j => j.id === job.id);
+    let updated: Job[] = [];
+    if (index > -1) {
+      updated = current.filter(j => j.id !== job.id);
+    } else {
+      updated = [...current, job];
+    }
+    this.favoritesSubject.next(updated);
+    localStorage.setItem('favorites', JSON.stringify(updated));
+  }
+
+  isJobFavorite(jobId: number): boolean {
+    return this.favoritesSubject.value.some(j => j.id === jobId);
+  }
+
   filterJobs(criteria: { date?: string, level?: string, company?: string, remote?: boolean, easyApply?: boolean }): void {
     let filtered = [...this.originalJobs];
 

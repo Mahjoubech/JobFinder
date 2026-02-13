@@ -1,1 +1,136 @@
-<p>applications-list works!</p>
+<div
+  class="h-full font-sans fixed inset-0 overflow-hidden transition-colors duration-300 bg-gray-50 dark:bg-slate-900 animate-fade-in"
+>
+  <app-job-search
+    [showSearch]="true"
+    [explicitSearch]="true"
+    (searchTrigger)="onSearch($event)"
+    (resetTrigger)="onReset()"
+  ></app-job-search>
+  <div class="pt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col">
+    <!-- Title Section -->
+    <div class="flex-shrink-0 flex justify-between items-center mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">
+          My Applications
+        </h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          Manage and track your job applications
+        </p>
+      </div>
+      <div
+        class="bg-white dark:bg-slate-800 px-3 py-1.5 rounded-full border border-gray-200 dark:border-slate-700 shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200"
+      >
+        <span class="text-purple-600 dark:text-purple-400 font-bold">{{
+          filteredApplications().length
+        }}</span>
+        Active
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-6 pb-4 flex-1 min-h-0">
+      <!-- List Column -->
+      <div
+        class="col-span-12 md:col-span-5 lg:col-span-5 h-full overflow-y-auto pr-2 custom-scrollbar"
+      >
+        <div *ngIf="isLoading()" class="flex justify-center py-10">
+          <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div
+          *ngIf="!isLoading() && filteredApplications().length === 0"
+          class="text-center py-12 bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 border-dashed"
+        >
+          <div
+            class="w-12 h-12 bg-purple-50 dark:bg-purple-900/20 rounded-full flex items-center justify-center mx-auto mb-3"
+          >
+            <svg
+              class="w-6 h-6 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+              ></path>
+            </svg>
+          </div>
+          <p class="text-gray-900 dark:text-white font-medium mb-1">No applications found</p>
+          <p class="text-gray-500 dark:text-gray-400 text-sm mb-4">
+            Try adjusting your search terms or apply to new jobs.
+          </p>
+          <a
+            routerLink="/"
+            class="inline-flex items-center text-sm font-medium text-purple-600 hover:text-purple-700"
+          >
+            Browse Jobs &rarr;
+          </a>
+        </div>
+
+        <div class="space-y-3 pb-20">
+          <div
+            *ngFor="let app of filteredApplications()"
+            (click)="onSelect(app)"
+            class="bg-white dark:bg-slate-800 rounded-xl p-4 border transition-all duration-200 cursor-pointer hover:shadow-md group relative"
+            [class.border-purple-600]="selectedAppId() === app.id?.toString()"
+            [class.dark:border-purple-500]="selectedAppId() === app.id?.toString()"
+            [class.ring-1]="selectedAppId() === app.id?.toString()"
+            [class.ring-purple-600]="selectedAppId() === app.id?.toString()"
+            [class.dark:ring-purple-500]="selectedAppId() === app.id?.toString()"
+            [class.border-gray-200]="selectedAppId() !== app.id?.toString()"
+            [class.dark:border-slate-700]="selectedAppId() !== app.id?.toString()"
+          >
+            <!-- Card Content -->
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold text-white shadow-sm flex-shrink-0 transition-transform group-hover:scale-105"
+                [class]="app.company | logoBackground"
+              >
+                {{ app.company.charAt(0).toUpperCase() }}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex justify-between items-start">
+                  <h3
+                    class="font-bold text-gray-900 dark:text-white truncate text-sm mb-0.5 group-hover:text-purple-600 transition-colors"
+                  >
+                    {{ app.title }}
+                  </h3>
+                </div>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-2 truncate">
+                  {{ app.company }} • {{ app.location }}
+                </p>
+
+                <div class="flex items-center justify-between mt-2">
+                  <span
+                    [class]="
+                      'text-[10px] px-2 py-0.5 rounded-full border font-medium uppercase tracking-wide ' +
+                      getStatusClass(app.status)
+                    "
+                  >
+                    {{
+                      app.status === 'en_attente'
+                        ? 'Pending'
+                        : app.status === 'accepted'
+                          ? 'Accepted'
+                          : 'Refused'
+                    }}
+                  </span>
+                  <span class="text-[10px] text-gray-400">{{ app.dateAdded | date: 'MMM d' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail Column -->
+      <div class="hidden md:block md:col-span-7 lg:col-span-7 h-full">
+        <app-job-detail></app-job-detail>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@
       "email": "cherkaoui@gmail.com",
       "password": "password",
       "jobTitle": "Backend Developer",
-      "profileImage": "https://preview.redd.it/is-sanji-becoming-more-annoying-v0-4y9dw5fmp6qe1.jpg?width=560&format=pjpg&auto=webp&s=453e9041ccb511bb49c45e4a2b04c29390bb90f3",
+      "profileImage": "https://sketchok.com/images/articles/06-anime/002-one-piece/34/19m.jpg",
       "resumeUrl": "cherkaoui@gmail.com"
     },
     {
@@ -192,6 +192,19 @@
       "status": "accepted",
       "notes": "",
       "dateAdded": "2026-02-14T13:37:53.437Z"
+    },
+    {
+      "id": "dcd4",
+      "userId": "1",
+      "offerId": "18220523",
+      "apiSource": "themuse",
+      "title": "Client Solutions Manager, FMCG (STE, 24 months)",
+      "company": "Meta",
+      "location": "Berlin, Germany",
+      "url": "https://www.themuse.com/jobs/meta/client-solutions-manager-fmcg-ste-24-months",
+      "status": "en_attente",
+      "notes": "",
+      "dateAdded": "2026-02-14T15:51:58.236Z"
     }
   ]
 }

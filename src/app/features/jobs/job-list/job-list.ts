@@ -6,6 +6,8 @@ import {Loader} from '../../../shared/components/loader/loader';
 import {delay} from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
+import { NotificationService } from '../../../core/service/notification.service';
+
 @Component({
   selector: 'app-job-list',
   standalone:true,
@@ -21,7 +23,11 @@ loading  = signal(false);
 allLoaded =  signal(false) ;
   selectedJobId:number | null = null;
   searchKeyword = '';
-  constructor(protected jobService : JobService, private route: ActivatedRoute) {}
+  constructor(
+    protected jobService : JobService, 
+    private route: ActivatedRoute,
+    private notificationService: NotificationService
+  ) {}
   ngOnInit(): void {
     // Handle Deep Linking
     this.route.queryParams.subscribe(params => {
@@ -60,6 +66,12 @@ allLoaded =  signal(false) ;
     if (this.jobs.length > 0 && !this.selectedJobId && !this.route.snapshot.queryParams['jobId']) {
       this.selectJob(this.jobs[0]);
     }
+
+    // Subscribe to new jobs
+    this.notificationService.jobAdded$.subscribe(newJob => {
+      console.log('JobList: Adding new job to top of list');
+      this.jobs = [newJob, ...this.jobs];
+    });
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['jobs'] && this.jobs.length > 0 && !this.selectedJobId) {

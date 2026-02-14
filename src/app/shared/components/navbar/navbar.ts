@@ -4,6 +4,7 @@ import { Router, RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/r
 import { Auth } from '../../../core/service/auth';
 import { User } from '../../../core/models/user';
 import { LoginModal } from '../login-modal/login-modal';
+import { NotificationService } from '../../../core/service/notification.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,12 +15,17 @@ import { LoginModal } from '../login-modal/login-modal';
 })
 export class Navbar implements OnInit {
   private router = inject(Router);
-  private authService = inject(Auth);
   showProfileMenu = false;
   isDarkMode = false;
   user: User | null = null;
+  showNotifications = false;
 
   private route = inject(ActivatedRoute);
+
+  constructor(
+    public authService: Auth,
+    public notificationService: NotificationService
+  ) {}
 
   ngOnInit() {
     this.authService.currentUser$.subscribe(user => {
@@ -50,6 +56,13 @@ export class Navbar implements OnInit {
 
   toggleProfileMenu() {
     this.showProfileMenu = !this.showProfileMenu;
+  }
+
+  toggleNotifications() {
+    this.showNotifications = !this.showNotifications;
+    if (this.showNotifications) {
+      this.notificationService.markAsRead();
+    }
   }
 
   logout() {

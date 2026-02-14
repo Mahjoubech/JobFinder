@@ -15,6 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(),
     provideEffects(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode()
+    })
 ]
 };

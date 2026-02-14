@@ -56,5 +56,97 @@
       "order_id": "123"
     }
   ],
-  "applications": []
+  "applications": [
+    {
+      "id": "ba4d",
+      "userId": "2",
+      "offerId": "19832334",
+      "apiSource": "themuse",
+      "title": "Retail Manager - Tire and Battery Center",
+      "company": "Walmart",
+      "location": "Omaha, NE",
+      "url": "https://www.themuse.com/jobs/walmart/retail-manager-tire-and-battery-center-81dbb3",
+      "status": "accepted",
+      "notes": "rrrrrrrrr",
+      "dateAdded": "2026-02-14T03:41:21.736Z"
+    },
+    {
+      "id": "b1b1",
+      "userId": "2",
+      "offerId": "19987712",
+      "apiSource": "themuse",
+      "title": "Department Supervisor",
+      "company": "Walmart",
+      "location": "Akron, OH",
+      "url": "https://www.themuse.com/jobs/walmart/department-supervisor-dea16d",
+      "status": "accepted",
+      "notes": "rrrrr",
+      "dateAdded": "2026-02-14T03:41:32.247Z"
+    },
+    {
+      "id": "dc51",
+      "userId": "2",
+      "offerId": "20118576",
+      "apiSource": "themuse",
+      "title": "Systems and Infrastructure Engineer III- Audio Visual Systems",
+      "company": "Walmart",
+      "location": "Fayetteville, AR",
+      "url": "https://www.themuse.com/jobs/walmart/systems-and-infrastructure-engineer-iii-audio-visual-systems-1cc969",
+      "status": "accepted",
+      "notes": "rrrrrrrrrr",
+      "dateAdded": "2026-02-14T03:41:42.330Z"
+    },
+    {
+      "id": "a7ca",
+      "userId": "2",
+      "offerId": "19644462",
+      "apiSource": "themuse",
+      "title": "Product Operation Specialist - Comprehensive Search Operation",
+      "company": "TikTok",
+      "location": "Singapore",
+      "url": "https://www.themuse.com/jobs/tiktok/product-operation-specialist-comprehensive-search-operation",
+      "status": "accepted",
+      "notes": "r",
+      "dateAdded": "2026-02-14T03:41:51.877Z"
+    },
+    {
+      "id": "81a8",
+      "userId": "2",
+      "offerId": "20684527",
+      "apiSource": "themuse",
+      "title": "Merchandising Internship Program | Summer 2026 | Framingham, MA",
+      "company": "The TJX Companies, Inc.",
+      "location": "Framingham, MA",
+      "url": "https://www.themuse.com/jobs/thetjxcompaniesinc/merchandising-internship-program-summer-2026-framingham-ma",
+      "status": "refused",
+      "notes": "",
+      "dateAdded": "2026-02-14T03:42:06.780Z"
+    },
+    {
+      "id": "7b61",
+      "userId": "2",
+      "offerId": "20080173",
+      "apiSource": "themuse",
+      "title": "(USA) Technician, Refrigeration/HVAC",
+      "company": "Walmart",
+      "location": "St. Peters, MO",
+      "url": "https://www.themuse.com/jobs/walmart/usa-technician-refrigerationhvac-f0866c",
+      "status": "en_attente",
+      "notes": "",
+      "dateAdded": "2026-02-14T03:48:12.165Z"
+    },
+    {
+      "id": "caab",
+      "userId": "2",
+      "offerId": "19057423",
+      "apiSource": "themuse",
+      "title": "Spring 2026 Intern - Electronics (Masters), C++",
+      "company": "Ansys",
+      "location": "Austin, TX",
+      "url": "https://www.themuse.com/jobs/ansys/spring-2026-intern-electronics-masters-c",
+      "status": "en_attente",
+      "notes": "",
+      "dateAdded": "2026-02-14T04:01:39.703Z"
+    }
+  ]
 }

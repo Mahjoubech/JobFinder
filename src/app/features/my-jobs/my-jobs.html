@@ -171,7 +171,7 @@
           </div>
 
           <div
-            *ngFor="let job of savedJobs()"
+            *ngFor="let job of getPaginatedList(savedJobs())"
             class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group relative"
           >
             <div class="flex items-start justify-between gap-4">
@@ -219,6 +219,13 @@
               </div>
             </div>
           </div>
+
+          <app-pagination
+            [currentPage]="currentPage()"
+            [totalItems]="savedJobs().length"
+            [itemsPerPage]="itemsPerPage"
+            (pageChange)="onPageChange($event)"
+          ></app-pagination>
         </div>
 
         <!-- APPLICATIONS LISTS (Applied, Interviews, Archived) -->
@@ -235,7 +242,9 @@
 
           <ng-template #appList>
             <div
-              *ngFor="let app of getApplicationsByStatus(getCurrentStatusFilter())"
+              *ngFor="
+                let app of getPaginatedList(getApplicationsByStatus(getCurrentStatusFilter()))
+              "
               class="bg-white dark:bg-slate-800 rounded-xl p-6 border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all group"
             >
               <div class="flex items-start justify-between gap-4">
@@ -381,6 +390,13 @@
                 </div>
               </div>
             </div>
+
+            <app-pagination
+              [currentPage]="currentPage()"
+              [totalItems]="getApplicationsByStatus(getCurrentStatusFilter()).length"
+              [itemsPerPage]="itemsPerPage"
+              (pageChange)="onPageChange($event)"
+            ></app-pagination>
           </ng-template>
         </div>
       </div>

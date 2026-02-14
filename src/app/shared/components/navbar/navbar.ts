@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import {Auth} from '../../../core/service/auth';
+import {User} from '../../../core/models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -9,14 +11,19 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.css',
 })
 export class Navbar implements OnInit {
+  private authService = inject(Auth);
   showProfileMenu = false;
   isDarkMode = false;
+  user : User | null = null;
 
   ngOnInit() {
-    // Check localStorage or system preference on init
+    const user = this.authService.getCurrentUser();
+    if(user){
+      this.user = user;
+    }
     const storedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     console.log('[Navbar] Initializing theme. Stored:', storedTheme, 'System Dark:', systemPrefersDark);
 
     if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
@@ -36,9 +43,9 @@ export class Navbar implements OnInit {
 
   toggleTheme() {
     console.log('[Navbar] Toggle Theme Clicked. Previous State (isDarkMode):', this.isDarkMode);
-    
+
     this.isDarkMode = !this.isDarkMode;
-    
+
     if (this.isDarkMode) {
       console.log('[Navbar] Switching to DARK mode');
       document.documentElement.classList.add('dark');
@@ -48,7 +55,7 @@ export class Navbar implements OnInit {
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
-    
+
     console.log('[Navbar] Document ClassList contains dark:', document.documentElement.classList.contains('dark'));
   }
 }

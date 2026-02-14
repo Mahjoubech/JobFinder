@@ -104,7 +104,7 @@
     >
       <div class="w-6 h-6 relative flex items-center justify-center">
         <img
-          src="https://i.pravatar.cc/150?u=jd"
+          [src]="user?.profileImage"
           class="rounded-full w-6 h-6 border border-gray-300 group-hover:border-purple-600 transition-colors"
           alt="Me"
         />
@@ -126,13 +126,13 @@
       <div class="px-4 py-2 border-b border-gray-100 dark:border-slate-700">
         <div class="flex items-center gap-3">
           <img
-            src="https://i.pravatar.cc/150?u=jd"
+            [src]="user?.profileImage"
             class="rounded-full w-10 h-10 border border-gray-300"
             alt="Me"
           />
           <div>
-            <p class="font-semibold text-gray-900 dark:text-white text-sm">John Doe</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Senior Developer</p>
+            <p class="font-semibold text-gray-900 dark:text-white text-sm">{{user?.firstName + " " + user?.lastName}}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{user?.jobTitle}}</p>
           </div>
         </div>
         <a

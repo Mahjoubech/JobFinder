@@ -34,7 +34,6 @@ export class Auth {
         return this.http.post<User>(this.API_URL, newUser).pipe(
           map(user => {
             this.currentUser = user;
-            // SECURITY: Do not store password in local storage
             const { password, ...userWithoutPassword } = user;
             localStorage.setItem('user', JSON.stringify(userWithoutPassword));
             return user;
@@ -55,7 +54,6 @@ export class Auth {
           throw new Error('Incorrect password');
         }
         this.currentUser = user;
-        // SECURITY: Do not store password in local storage
         const { password: _, ...userWithoutPassword } = user;
         localStorage.setItem('user', JSON.stringify(userWithoutPassword));
         return user;
@@ -82,7 +80,7 @@ export class Auth {
       this.currentUser = updatedUser;
       const { password, ...userWithoutPassword } = updatedUser;
       localStorage.setItem('user', JSON.stringify(userWithoutPassword));
-      
+
       return updatedUser;
     })
   );

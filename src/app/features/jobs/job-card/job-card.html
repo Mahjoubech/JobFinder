@@ -29,10 +29,10 @@
         [class.dark:group:text-purple-400]="isActive"
         class="text-base font-bold text-gray-900 dark:text-white truncate group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300"
       >
-        {{ job.name ?? 'Untitled Job' }}
+        {{ job.name }}
       </h3>
       <p class="text-sm font-medium text-gray-700 dark:text-gray-300 truncate">
-        {{ job.company.name ?? 'Unknown Company' }}
+        {{ job.company.name }}
       </p>
       <div class="flex items-center gap-2 mt-1 text-xs text-gray-500 dark:text-gray-400">
         <span *ngIf="job.locations && job.locations.length > 0; else noLocation">{{
@@ -64,6 +64,7 @@
 
       <!-- Favorite Button (Moved to Bottom Right) -->
       <button
+        *ngIf="user"
         (click)="$event.stopPropagation(); toggleFavorite()"
         class="absolute bottom-4 right-4 p-2 rounded-full hover:bg-white/80 dark:hover:bg-slate-700/80 transition-all duration-300 group/fav z-10"
         type="button"

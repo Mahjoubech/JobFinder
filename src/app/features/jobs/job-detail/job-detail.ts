@@ -9,12 +9,14 @@ import { ToastService } from '../../../core/service/toast';
 import { Router } from '@angular/router';
 import { Application } from '../../../core/models/applicationInterface';
 import { FormsModule } from '@angular/forms';
+import { LoginModal } from '../../../shared/components/login-modal/login-modal';
+import { User } from '../../../core/models/user';
 
 @Component({
   selector: 'app-job-detail',
   standalone:true,
   changeDetection: ChangeDetectionStrategy.Default,
-  imports: [CommonModule ,  LogoBackgroundPipe, FormsModule ],
+  imports: [CommonModule ,  LogoBackgroundPipe, FormsModule, LoginModal],
   templateUrl: './job-detail.html',
   styleUrl: './job-detail.css',
 })
@@ -26,6 +28,9 @@ export class JobDetail implements OnInit{
   isProcessing = signal(false);
   application = signal<Application | null>(null);
 
+  user: User | null = null;
+  showLoginModal = false;
+
   private http = inject(HttpClient);
   private API_URL = '/themuse-api/api/public/jobs';
   private applicationService = inject(ApplicationService);
@@ -36,6 +41,10 @@ export class JobDetail implements OnInit{
   constructor(private jobService : JobService) {}
 
   ngOnInit(): void {
+    this.auth.currentUser$.subscribe(user => {
+      this.user = user;
+    });
+
     this.jobService.selectedJob$.subscribe(job => {
       this.job.set(job);
       this.checkIfTracked(job);
@@ -78,11 +87,19 @@ export class JobDetail implements OnInit{
       if (!job) return;
       
       if (!this.auth.isAuthenticated()) {
-          this.router.navigate(['/login']);
+          this.openLoginModal();
           return;
       }
       
       this.router.navigate(['/jobs', job.id, 'apply']);
+  }
+
+  openLoginModal() {
+    this.showLoginModal = true;
+  }
+
+  closeLoginModal() {
+    this.showLoginModal = false;
   }
 
   updateStatus(event: any) {

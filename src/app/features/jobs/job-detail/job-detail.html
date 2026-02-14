@@ -56,6 +56,7 @@
         </button>
 
         <button
+          *ngIf="user"
           (click)="toggleFavorite()"
           class="px-6 py-2.5 border font-semibold rounded-full transition-all duration-300 transform hover:-translate-y-0.5 flex items-center gap-2 group"
           [class.border-red-500]="isFavorite"
@@ -255,4 +256,5 @@
       </p>
     </section>
   </div>
+  <app-login-modal [isVisible]="showLoginModal" (close)="closeLoginModal()"></app-login-modal>
 </div>

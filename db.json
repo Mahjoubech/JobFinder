@@ -5,7 +5,10 @@
       "firstName": "mahjoub",
       "lastName": "cherkaoui",
       "email": "cherkaoui@gmail.com",
-      "password": "password"
+      "password": "password",
+      "jobTitle": "Backend Developer",
+      "profileImage": "",
+      "resumeUrl": "cherkaoui@gmail.com"
     },
     {
       "id": "2",

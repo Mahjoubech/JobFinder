@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {v4 as uuidv4} from 'uuid';
-import {map, mergeMap, Observable, of, throwError} from 'rxjs';
+import {BehaviorSubject, map, mergeMap, Observable, of, throwError} from 'rxjs';
 import {User} from '../models/user';
 
 
@@ -9,9 +9,16 @@ import {User} from '../models/user';
   providedIn: 'root',
 })
 export class Auth {
- private API_URL = "http://localhost:3000/users"
-  private currentUser: User | null = null ;
-  constructor(private http : HttpClient) {}
+  private API_URL = "http://localhost:3000/users"
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
+
+  constructor(private http : HttpClient) {
+    const stored = localStorage.getItem('user');
+    if (stored) {
+      this.currentUserSubject.next(JSON.parse(stored));
+    }
+  }
 
   register(firstName: string, lastName: string, email: string, password: string): Observable<User> {
     return this.http.get<User[]>(`${this.API_URL}?email=${email}`).pipe(
@@ -28,9 +35,7 @@ export class Auth {
         };
         return this.http.post<User>(this.API_URL, newUser).pipe(
           map(user => {
-            this.currentUser = user;
-            const { password, ...userWithoutPassword } = user;
-            localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+            this.setCurrentUser(user);
             return user;
           })
         );
@@ -48,36 +53,37 @@ export class Auth {
         if (user.password !== password) {
           throw new Error('Incorrect password');
         }
-        this.currentUser = user;
-        const { password: _, ...userWithoutPassword } = user;
-        localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+        this.setCurrentUser(user);
         return user;
       })
     );
   }
 
   getCurrentUser(): User | null {
-    if (this.currentUser) return this.currentUser;
-
-    const stored = localStorage.getItem('user');
-    return stored ? JSON.parse(stored) : null;
+    return this.currentUserSubject.value;
   }
+
   logout() {
-    this.currentUser = null;
+    this.currentUserSubject.next(null);
     localStorage.removeItem('user');
   }
+
   isAuthenticated(): boolean {
     return !!this.getCurrentUser();
   }
-  updateProfile(id: string, data: Partial<User>): Observable<User> {
-  return this.http.patch<User>(`${this.API_URL}/${id}`, data).pipe(
-    map(updatedUser => {
-      this.currentUser = updatedUser;
-      const { password, ...userWithoutPassword } = updatedUser;
-      localStorage.setItem('user', JSON.stringify(userWithoutPassword));
 
-      return updatedUser;
-    })
-  );
-}
+  updateProfile(id: string, data: Partial<User>): Observable<User> {
+    return this.http.patch<User>(`${this.API_URL}/${id}`, data).pipe(
+      map(updatedUser => {
+        this.setCurrentUser(updatedUser);
+        return updatedUser;
+      })
+    );
+  }
+
+  private setCurrentUser(user: User) {
+    this.currentUserSubject.next(user);
+    const { password, ...userWithoutPassword } = user;
+    localStorage.setItem('user', JSON.stringify(userWithoutPassword));
+  }
 }

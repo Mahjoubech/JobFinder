@@ -7,7 +7,7 @@
       "email": "cherkaoui@gmail.com",
       "password": "password",
       "jobTitle": "Backend Developer",
-      "profileImage": "",
+      "profileImage": "https://preview.redd.it/is-sanji-becoming-more-annoying-v0-4y9dw5fmp6qe1.jpg?width=560&format=pjpg&auto=webp&s=453e9041ccb511bb49c45e4a2b04c29390bb90f3",
       "resumeUrl": "cherkaoui@gmail.com"
     },
     {
@@ -153,6 +153,45 @@
       "status": "en_attente",
       "notes": "",
       "dateAdded": "2026-02-14T04:01:39.703Z"
+    },
+    {
+      "id": "71f7",
+      "userId": "1",
+      "offerId": "19832334",
+      "apiSource": "themuse",
+      "title": "Retail Manager - Tire and Battery Center",
+      "company": "Walmart",
+      "location": "Omaha, NE",
+      "url": "https://www.themuse.com/jobs/walmart/retail-manager-tire-and-battery-center-81dbb3",
+      "status": "en_attente",
+      "notes": "i want htis job\n",
+      "dateAdded": "2026-02-14T13:12:44.779Z"
+    },
+    {
+      "id": "b2d6",
+      "userId": "1",
+      "offerId": "19896190",
+      "apiSource": "themuse",
+      "title": "(USA) Manager, Apparel Designer",
+      "company": "Walmart",
+      "location": "New York, NY",
+      "url": "https://www.themuse.com/jobs/walmart/usa-manager-apparel-designer-5e0aba",
+      "status": "en_attente",
+      "notes": "hhhhhuuu",
+      "dateAdded": "2026-02-14T13:37:43.870Z"
+    },
+    {
+      "id": "92ea",
+      "userId": "1",
+      "offerId": "19987712",
+      "apiSource": "themuse",
+      "title": "Department Supervisor",
+      "company": "Walmart",
+      "location": "Akron, OH",
+      "url": "https://www.themuse.com/jobs/walmart/department-supervisor-dea16d",
+      "status": "accepted",
+      "notes": "",
+      "dateAdded": "2026-02-14T13:37:53.437Z"
     }
   ]
 }

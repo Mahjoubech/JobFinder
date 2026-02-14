@@ -129,7 +129,7 @@
         <div class="w-6 h-6 relative flex items-center justify-center">
           <img
             [src]="
-              user?.profileImage ||
+              user.profileImage ||
               'https://img.freepik.com/free-vector/hand-drawn-question-mark-silhouette_23-2150940534.jpg'
             "
             class="rounded-full w-6 h-6 border border-gray-300 group-hover:border-purple-600 transition-colors object-cover"
@@ -154,7 +154,7 @@
           <div class="flex items-center gap-3">
             <img
               [src]="
-                user?.profileImage ||
+                user.profileImage ||
                 'https://img.freepik.com/free-vector/hand-drawn-question-mark-silhouette_23-2150940534.jpg'
               "
               class="rounded-full w-10 h-10 border border-gray-300 object-cover"
@@ -162,9 +162,9 @@
             />
             <div>
               <p class="font-semibold text-gray-900 dark:text-white text-sm">
-                {{ user?.firstName + ' ' + user?.lastName }}
+                {{ user.firstName + ' ' + user.lastName }}
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">{{ user?.jobTitle }}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">{{ user.jobTitle }}</p>
             </div>
           </div>
           <a

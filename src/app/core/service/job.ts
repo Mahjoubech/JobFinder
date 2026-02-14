@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, finalize, map, Observable} from 'rxjs';
-import {Job} from '../models/Job';
+import {Job} from '../models/job';
 export type {Job};
 
 @Injectable({

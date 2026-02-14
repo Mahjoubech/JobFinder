@@ -1,1 +1,39 @@
-<p>pagination works!</p>
+<div *ngIf="totalPages > 1" class="flex items-center justify-center gap-2 mt-6">
+  <!-- Previous Button -->
+  <button
+    (click)="onPageChange(currentPage - 1)"
+    [disabled]="currentPage === 1"
+    class="p-2 rounded-lg border border-gray-200 dark:border-slate-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+
+  <!-- Page Numbers -->
+  <div class="flex items-center gap-1">
+    <button
+      *ngFor="let page of pages"
+      (click)="onPageChange(page)"
+      class="w-8 h-8 rounded-lg text-sm font-medium transition-colors"
+      [ngClass]="{
+        'bg-purple-600 text-white shadow-sm shadow-purple-600/30': currentPage === page,
+        'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800':
+          currentPage !== page,
+      }"
+    >
+      {{ page }}
+    </button>
+  </div>
+
+  <!-- Next Button -->
+  <button
+    (click)="onPageChange(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+    class="p-2 rounded-lg border border-gray-200 dark:border-slate-700 text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+</div>

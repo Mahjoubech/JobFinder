@@ -1,12 +1,14 @@
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Component, inject, OnInit} from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import {Auth} from '../../../core/service/auth';
-import {User} from '../../../core/models/user';
+import { Router, RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/router';
+import { Auth } from '../../../core/service/auth';
+import { User } from '../../../core/models/user';
+import { LoginModal } from '../login-modal/login-modal';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink, RouterLinkActive, CommonModule],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive, CommonModule, LoginModal],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
@@ -14,13 +16,21 @@ export class Navbar implements OnInit {
   private authService = inject(Auth);
   showProfileMenu = false;
   isDarkMode = false;
-  user : User | null = null;
+  user: User | null = null;
+
+  private route = inject(ActivatedRoute);
 
   ngOnInit() {
-    const user = this.authService.getCurrentUser();
-    if(user){
+    this.authService.currentUser$.subscribe(user => {
       this.user = user;
-    }
+    });
+
+    this.route.queryParams.subscribe((params: any) => {
+      if (params['login'] === 'true') {
+        this.openLoginModal();
+      }
+    });
+
     const storedTheme = localStorage.getItem('theme');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
@@ -41,6 +51,10 @@ export class Navbar implements OnInit {
     this.showProfileMenu = !this.showProfileMenu;
   }
 
+  logout() {
+    this.authService.logout();
+  }
+
   toggleTheme() {
     console.log('[Navbar] Toggle Theme Clicked. Previous State (isDarkMode):', this.isDarkMode);
 
@@ -57,5 +71,15 @@ export class Navbar implements OnInit {
     }
 
     console.log('[Navbar] Document ClassList contains dark:', document.documentElement.classList.contains('dark'));
+  }
+
+  showLoginModal = false;
+
+  openLoginModal() {
+    this.showLoginModal = true;
+  }
+
+  closeLoginModal() {
+    this.showLoginModal = false;
   }
 }

@@ -20,7 +20,7 @@ import { LogoBackgroundPipe } from '../../../shared/pipes/logo-background-pipe';
 })
 export class Profile implements OnInit {
   user: User | null = null;
-  
+
   // Profile Fields
   firstName: string = '';
   lastName: string = '';
@@ -28,7 +28,7 @@ export class Profile implements OnInit {
   jobTitle: string = '';
   profileImage: string = '';
   resumeUrl: string = '';
-  
+
   // Password Fields
   oldPassword: string = '';
   newPassword: string = '';
@@ -54,7 +54,7 @@ export class Profile implements OnInit {
     'QA Engineer'
   ];
 
-  readonly defaultProfileImage = 'https://cdn-icons-png.flaticon.com/512/149/149071.png';
+  readonly defaultProfileImage = 'https://img.freepik.com/free-vector/hand-drawn-question-mark-silhouette_23-2150940534.jpg?semt=ais_wordcount_boost&w=740&q=80';
 
   private authService = inject(Auth);
   private toastService = inject(ToastService);
@@ -99,7 +99,7 @@ export class Profile implements OnInit {
   loadRecentApps(userId: string) {
       this.appService.getUserApplications(userId).subscribe(apps => {
           // Get last 3 applications sorted by date
-          const sorted = [...apps].sort((a, b) => 
+          const sorted = [...apps].sort((a, b) =>
             new Date(b.dateAdded || 0).getTime() - new Date(a.dateAdded || 0).getTime()
           ).slice(0, 3);
           this.recentApplications.set(sorted);
@@ -113,7 +113,7 @@ export class Profile implements OnInit {
         this.toastService.show('Image size should be less than 5MB', 'error');
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.profileImage = e.target.result;

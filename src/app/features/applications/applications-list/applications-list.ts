@@ -15,7 +15,7 @@ import {JobSearch} from '../../jobs/job-search/job-search';
 @Component({
   selector: 'app-applications-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, LogoBackgroundPipe, JobDetail, JobFilter, JobSearch],
+  imports: [CommonModule, RouterLink, FormsModule, LogoBackgroundPipe, JobDetail, JobSearch],
   templateUrl: './applications-list.html',
   styleUrl: './applications-list.css'
 })

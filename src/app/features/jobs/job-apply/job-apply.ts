@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApplicationService } from '../../../core/service/applications';
 import { Auth } from '../../../core/service/auth';
 import { ToastService } from '../../../core/service/toast';
-import { Job } from '../../../core/models/Job';
+import { Job } from '../../../core/models/job';
 import { LogoBackgroundPipe } from '../../../shared/pipes/logo-background-pipe';
 import { Navbar } from '../../../shared/components/navbar/navbar';
 
@@ -73,7 +73,7 @@ export class JobApply implements OnInit {
         notes: this.note(),
         dateAdded: new Date().toISOString()
       };
-      
+
       this.appService.addApplication(newApp as any).subscribe({
         next: () => {
           this.toastService.show('Application submitted successfully!', 'success');

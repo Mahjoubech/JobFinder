@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Auth, User } from '../../../core/service/auth';
+import { Auth } from '../../../core/service/auth';
+import { User } from '../../../core/models/user';
 import { JobSearch } from '../../jobs/job-search/job-search';
-import { JobCard } from '../../jobs/job-card/job-card';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ToastService } from '../../../core/service/toast';
@@ -14,7 +14,7 @@ import { LogoBackgroundPipe } from '../../../shared/pipes/logo-background-pipe';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [JobSearch, JobCard, FormsModule, CommonModule, ToastComponent, LogoBackgroundPipe],
+  imports: [JobSearch, FormsModule, CommonModule, ToastComponent, LogoBackgroundPipe],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })

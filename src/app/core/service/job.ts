@@ -39,6 +39,9 @@ export class JobService  {
       })
     );
   }
+  getJobById(id: number | string): Observable<Job> {
+      return this.http.get<Job>(`${this.API_URL}/${id}`);
+  }
   setSelectedJob(job : Job | null){
     this.selectedJobSubject.next(job);
   }

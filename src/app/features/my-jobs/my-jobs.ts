@@ -95,16 +95,54 @@ export class MyJobs implements OnInit {
     });
   }
 
-  deleteApplication(app: Application) {
-    if(!confirm('Are you sure you want to delete this application?')) return;
-    if (!app.id) return;
+  expandedAppId = signal<string | number | null>(null);
+
+  toggleNotes(app: Application) {
+    if (this.expandedAppId() === app.id) {
+      this.expandedAppId.set(null);
+    } else {
+      this.expandedAppId.set(app.id!);
+    }
+  }
+
+  saveNotes(app: Application) {
+      if (!app.id) return;
+      this.appService.updateNotes(app.id, app.notes).subscribe({
+          next: () => {
+              this.toastService.show('Notes updated successfully!', 'success');
+              this.expandedAppId.set(null);
+          },
+          error: () => this.toastService.show('Failed to update notes.', 'error')
+      });
+  }
+
+  showDeleteModal = signal(false);
+  applicationToDelete = signal<Application | null>(null);
+
+  confirmDelete(app: Application) {
+    this.applicationToDelete.set(app);
+    this.showDeleteModal.set(true);
+  }
+
+  cancelDelete() {
+    this.showDeleteModal.set(false);
+    this.applicationToDelete.set(null);
+  }
+
+  performDelete() {
+    const app = this.applicationToDelete();
+    if (!app || !app.id) return;
     
     this.appService.deleteApplication(app.id).subscribe({
       next: () => {
-        this.toastService.show('Application deleted', 'success');
+        this.toastService.show('Application deleted successfully!', 'success');
         this.loadApplications();
+        this.cancelDelete();
       },
-      error: () => this.toastService.show('Failed to delete application', 'error')
+      error: () => {
+        this.toastService.show('Failed to delete application', 'error');
+        this.cancelDelete();
+      }
     });
   }
 }

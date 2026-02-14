@@ -9,10 +9,13 @@
     },
     {
       "id": "2",
-      "firstName": "hadouchikk",
+      "firstName": "hadouchi",
       "lastName": "hamza",
       "email": "hamza@gmail.com",
-      "password": "aaaaaaaaaaa"
+      "password": "aaaaaaaaaaa",
+      "jobTitle": "DevOps Engineer",
+      "profileImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHDxl6MPB3c9VXspRrPldcDNNQMTmrYrZYog&s",
+      "resumeUrl": "mahjoub5625@gmail.com"
     },
     {
       "id": "fa20d7c6-d3fd-48a1-971b-3db917aa275e",

@@ -66,6 +66,7 @@ export class Auth {
   logout() {
     this.currentUserSubject.next(null);
     localStorage.removeItem('user');
+
   }
 
   isAuthenticated(): boolean {

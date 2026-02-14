@@ -19,7 +19,7 @@ export class Login {
     this.errorMess = null;
     this.authService.login(this.email, this.password).subscribe({
       next: (user) => {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.errorMess = err.message;

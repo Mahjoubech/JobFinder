@@ -13,6 +13,7 @@ import { LoginModal } from '../login-modal/login-modal';
   styleUrl: './navbar.css',
 })
 export class Navbar implements OnInit {
+  private router = inject(Router);
   private authService = inject(Auth);
   showProfileMenu = false;
   isDarkMode = false;
@@ -53,6 +54,7 @@ export class Navbar implements OnInit {
 
   logout() {
     this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   toggleTheme() {

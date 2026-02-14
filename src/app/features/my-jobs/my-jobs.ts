@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { JobService, Job } from '../../core/service/job';
@@ -9,11 +9,12 @@ import { LogoBackgroundPipe } from '../../shared/pipes/logo-background-pipe';
 import { Navbar } from '../../shared/components/navbar/navbar';
 import { ToastService } from '../../core/service/toast';
 import { FormsModule } from '@angular/forms';
+import { Pagination } from '../../shared/components/pagination/pagination';
 
 @Component({
   selector: 'app-my-jobs',
   standalone: true,
-  imports: [CommonModule, RouterLink, LogoBackgroundPipe, Navbar, FormsModule],
+  imports: [CommonModule, RouterLink, LogoBackgroundPipe, Navbar, FormsModule, Pagination],
   templateUrl: './my-jobs.html',
   styleUrl: './my-jobs.css'
 })
@@ -21,7 +22,10 @@ export class MyJobs implements OnInit {
   activeTab = signal<'saved' | 'applied' | 'interviews' | 'archived'>('saved');
   savedJobs = signal<Job[]>([]);
   applications = signal<Application[]>([]);
-  
+
+  currentPage = signal(1);
+  itemsPerPage = 2;
+
   private jobService = inject(JobService);
   private appService = inject(ApplicationService);
   private auth = inject(Auth);
@@ -37,6 +41,7 @@ export class MyJobs implements OnInit {
         } else {
             this.activeTab.set('saved');
         }
+        this.currentPage.set(1);
     });
     this.loadSavedJobs();
     this.loadApplications();
@@ -44,7 +49,7 @@ export class MyJobs implements OnInit {
 
   loadSavedJobs() {
     this.jobService.favorites$.subscribe(jobs => {
-      this.savedJobs.set(jobs);
+      this.savedJobs.set([...jobs].reverse());
     });
   }
 
@@ -52,7 +57,11 @@ export class MyJobs implements OnInit {
     const user = this.auth.getCurrentUser();
     if (user) {
       this.appService.getUserApplications(user.id).subscribe(apps => {
-        this.applications.set(apps);
+        // Sort by dateAdded descending (newest first)
+        const sortedApps = apps.sort((a, b) => {
+          return new Date(b.dateAdded || 0).getTime() - new Date(a.dateAdded || 0).getTime();
+        });
+        this.applications.set(sortedApps);
       });
     }
   }
@@ -65,6 +74,15 @@ export class MyJobs implements OnInit {
           return this.applications().filter(a => a.status === 'refused');
       }
       return this.applications().filter(a => a.status === 'en_attente');
+  }
+
+  getPaginatedList<T>(list: T[]): T[] {
+    const startIndex = (this.currentPage() - 1) * this.itemsPerPage;
+    return list.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+
+  onPageChange(page: number) {
+    this.currentPage.set(page);
   }
 
   getCurrentStatusFilter(): string {
@@ -89,7 +107,7 @@ export class MyJobs implements OnInit {
     this.appService.updateStatus(app.id, newStatus).subscribe({
       next: () => {
         this.toastService.show('Status updated', 'success');
-        this.loadApplications(); 
+        this.loadApplications();
       },
       error: () => this.toastService.show('Failed to update status', 'error')
     });
@@ -132,7 +150,7 @@ export class MyJobs implements OnInit {
   performDelete() {
     const app = this.applicationToDelete();
     if (!app || !app.id) return;
-    
+
     this.appService.deleteApplication(app.id).subscribe({
       next: () => {
         this.toastService.show('Application deleted successfully!', 'success');

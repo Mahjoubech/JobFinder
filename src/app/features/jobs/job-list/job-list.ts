@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {Job, JobService} from '../../../core/service/job';
 import {Loader} from '../../../shared/components/loader/loader';
 import {delay} from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-job-list',
@@ -20,11 +21,26 @@ loading  = signal(false);
 allLoaded =  signal(false) ;
   selectedJobId:number | null = null;
   searchKeyword = '';
-constructor(protected jobService : JobService) {}
+  constructor(protected jobService : JobService, private route: ActivatedRoute) {}
   ngOnInit(): void {
+    // Handle Deep Linking
+    this.route.queryParams.subscribe(params => {
+        const jobId = params['jobId'];
+        if (jobId) {
+            this.jobService.getJobById(jobId).subscribe({
+                next: (job) => {
+                    if (job) this.selectJob(job);
+                },
+                error: (err) => console.error('Failed to load deep-linked job', err)
+            });
+        }
+    });
+
     this.jobService.jobs$.subscribe(jobs => {
       this.jobs = jobs;
-      if (this.jobs.length > 0) {
+      // Only auto-select first job if NO job is explicitly selected AND no deep link intent
+      const hasDeepLink = this.route.snapshot.queryParams['jobId'];
+      if (this.jobs.length > 0 && !this.selectedJobId && !hasDeepLink) {
         this.selectJob(this.jobs[0]);
       }
     });
@@ -40,7 +56,8 @@ constructor(protected jobService : JobService) {}
       this.selectedJobId = job ? job.id : null;
     });
 
-    if (this.jobs.length > 0 && !this.selectedJobId) {
+    // Initial check (legacy logic, might be redundant with the subscription above but keeping safe)
+    if (this.jobs.length > 0 && !this.selectedJobId && !this.route.snapshot.queryParams['jobId']) {
       this.selectJob(this.jobs[0]);
     }
   }

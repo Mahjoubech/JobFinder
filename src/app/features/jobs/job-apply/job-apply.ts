@@ -2,7 +2,6 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { ApplicationService } from '../../../core/service/applications';
 import { Auth } from '../../../core/service/auth';
 import { ToastService } from '../../../core/service/toast';
@@ -24,33 +23,20 @@ export class JobApply implements OnInit {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private http = inject(HttpClient);
   private appService = inject(ApplicationService);
   private auth = inject(Auth);
   private toastService = inject(ToastService);
-  private API_URL = '/themuse-api/api/public/jobs';
 
   ngOnInit() {
-    const jobId = this.route.snapshot.paramMap.get('id');
-    if (!jobId) {
+    // Resolver data
+    const job = this.route.snapshot.data['job'];
+    if (job) {
+      this.job.set(job);
+      this.isLoading.set(false);
+    } else {
+      this.toastService.show('Failed to load job details', 'error');
       this.router.navigate(['/']);
-      return;
     }
-    this.fetchJob(jobId);
-  }
-
-  fetchJob(id: string) {
-    this.isLoading.set(true);
-    this.http.get<Job>(`${this.API_URL}/${id}`).subscribe({
-        next: (job) => {
-            this.job.set(job);
-            this.isLoading.set(false);
-        },
-        error: () => {
-            this.toastService.show('Failed to load job details', 'error');
-            this.router.navigate(['/']);
-        }
-    });
   }
 
   confirmApplication() {

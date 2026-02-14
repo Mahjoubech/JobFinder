@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import {AuthGuard} from './core/guards/auth-guard';
 import {Home} from './features/home/home';
 import { NotFound } from './features/not-found';
+import { jobResolver } from './core/resolvers/job.resolver';
 
 export const routes: Routes = [
   {
@@ -32,7 +33,8 @@ export const routes: Routes = [
   {
     path: 'jobs/:id/apply', 
     loadComponent: () => import('./features/jobs/job-apply/job-apply').then(m => m.JobApply),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    resolve: { job: jobResolver }
   },
   {path: '**', component: NotFound}
 ];

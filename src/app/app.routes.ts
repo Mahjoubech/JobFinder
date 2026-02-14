@@ -9,6 +9,7 @@ import {ApplicationsList} from './features/applications/applications-list/applic
 import {MyJobs} from './features/my-jobs/my-jobs';
 
 import {JobApply} from './features/jobs/job-apply/job-apply';
+import { NotFound } from './features/not-found';
 
 export const routes: Routes = [
   {path : "register" , component: Register},
@@ -19,5 +20,6 @@ export const routes: Routes = [
   {path: 'my-jobs/:tab', component: MyJobs, canActivate: [AuthGuard]},
   {path: 'favorites', redirectTo: 'my-jobs/saved', pathMatch: 'full'},
   {path: 'applications', redirectTo: 'my-jobs/applied', pathMatch: 'full'},
-  {path: 'jobs/:id/apply', component: JobApply, canActivate: [AuthGuard]}
+  {path: 'jobs/:id/apply', component: JobApply, canActivate: [AuthGuard]},
+  {path: '**', component: NotFound}
 ];

@@ -82,6 +82,14 @@ export class Auth {
     );
   }
 
+  deleteAccount(id : string){
+    return this.http.delete(`${this.API_URL}/${id}`).pipe(
+      map(()=> {
+        this.logout();
+      })
+    )
+  }
+
   private setCurrentUser(user: User) {
     this.currentUserSubject.next(user);
     const { password, ...userWithoutPassword } = user;

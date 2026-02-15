@@ -10,11 +10,12 @@ import { ApplicationService } from '../../../core/service/applications';
 import { JobService } from '../../../core/service/job';
 import { Application } from '../../../core/models/applicationInterface';
 import { LogoBackgroundPipe } from '../../../shared/pipes/logo-background-pipe';
+import {DeletAccount} from '../../../shared/components/delet-account/delet-account';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [JobSearch, FormsModule, CommonModule, ToastComponent, LogoBackgroundPipe],
+  imports: [JobSearch, FormsModule, CommonModule, ToastComponent, LogoBackgroundPipe , DeletAccount],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
@@ -85,12 +86,10 @@ export class Profile implements OnInit {
   }
 
   loadStats(userId: string) {
-    // favorites count
     this.jobService.favorites$.subscribe(favs => {
         this.favoritesCount.set(favs.length);
     });
 
-    // applied count
     this.appService.getUserApplications(userId).subscribe(apps => {
         this.appliedCount.set(apps.length);
     });
@@ -98,7 +97,6 @@ export class Profile implements OnInit {
 
   loadRecentApps(userId: string) {
       this.appService.getUserApplications(userId).subscribe(apps => {
-          // Get last 3 applications sorted by date
           const sorted = [...apps].sort((a, b) =>
             new Date(b.dateAdded || 0).getTime() - new Date(a.dateAdded || 0).getTime()
           ).slice(0, 3);
@@ -158,7 +156,13 @@ export class Profile implements OnInit {
       }
     });
   }
-
+  showForm = false
+  openDeletForm(){
+    this.showForm = true;
+  }
+  showDeletForm(){
+    this.showForm = false;
+  }
   resetPasswordFields() {
     this.oldPassword = '';
     this.newPassword = '';

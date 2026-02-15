@@ -186,7 +186,18 @@
               </div>
             </div>
 
-            <div class="flex justify-end pt-4">
+            <div class="flex justify-between pt-4">
+              <button
+                (click)="openDeletForm()"
+                [disabled]="isLoading()"
+                class="px-8 py-3 bg-gradient-to-r from-red-900 via-oronge-700 to-red-400 text-white font-bold rounded-full hover:shadow-lg hover:shadow-red-500/30 transform hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 disabled:cursor-wait flex items-center gap-2"
+              >
+                <div
+                  *ngIf="isLoading()"
+                  class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"
+                ></div>
+                <span>{{ isLoading() ? 'loading Page...' : 'Delete Account' }}</span>
+              </button>
               <button
                 (click)="updateProfile()"
                 [disabled]="isLoading()"
@@ -199,6 +210,9 @@
                 <span>{{ isLoading() ? 'Saving...' : 'Save Changes' }}</span>
               </button>
             </div>
+
+
+
           </div>
         </div>
 
@@ -330,10 +344,11 @@
               <p class="text-sm text-gray-500">No recent activity.</p>
             </ng-template>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
-
+<app-delet-account [isVisible] = "showForm" (close)="showDeletForm()" )></app-delet-account>
 <app-toast-component></app-toast-component>

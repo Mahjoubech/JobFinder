@@ -22,7 +22,7 @@ export class Register {
 
   register() {
     this.errorMess = null;
-    
+
     if (this.password !== this.confirmPass) {
       this.errorMess = "Passwords do not match";
       return;
@@ -30,7 +30,7 @@ export class Register {
 
     this.authService.register(this.firstName, this.lastName, this.email, this.password).subscribe({
       next: (user) => {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.errorMess = err.message;

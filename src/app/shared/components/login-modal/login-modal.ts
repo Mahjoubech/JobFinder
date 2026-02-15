@@ -52,7 +52,6 @@ export class LoginModal {
   closeModal() {
     this.isVisible = false;
     this.close.emit();
-    // Reset form
     this.email = '';
     this.password = '';
   }

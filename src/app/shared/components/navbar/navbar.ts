@@ -4,12 +4,13 @@ import { Router, RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/r
 import { Auth } from '../../../core/service/auth';
 import { User } from '../../../core/models/user';
 import { LoginModal } from '../login-modal/login-modal';
+import { LogoutConfirm } from '../logout-confirm/logout-confirm';
 import { NotificationService } from '../../../core/service/notification.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule, LoginModal],
+  imports: [RouterLink, RouterLinkActive, CommonModule, LoginModal, LogoutConfirm],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
 })
@@ -65,8 +66,30 @@ export class Navbar implements OnInit {
     }
   }
 
+  showLoginModal = false;
+  showLogoutConfirm = false;
+
+  openLoginModal() {
+    this.showLoginModal = true;
+  }
+
+  closeLoginModal() {
+    this.showLoginModal = false;
+  }
+
+  closeLogoutConfirm() {
+    this.showLogoutConfirm = false;
+  }
+
   logout() {
+    // Open confirmation modal instead of logging out immediately
+    this.showLogoutConfirm = true;
+    this.showProfileMenu = false;
+  }
+
+  onConfirmLogout() {
     this.authService.logout();
+    this.showLogoutConfirm = false;
     this.router.navigate(['/']);
   }
 
@@ -86,15 +109,5 @@ export class Navbar implements OnInit {
     }
 
     console.log('[Navbar] Document ClassList contains dark:', document.documentElement.classList.contains('dark'));
-  }
-
-  showLoginModal = false;
-
-  openLoginModal() {
-    this.showLoginModal = true;
-  }
-
-  closeLoginModal() {
-    this.showLoginModal = false;
   }
 }

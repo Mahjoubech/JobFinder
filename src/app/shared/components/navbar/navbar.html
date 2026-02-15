@@ -264,4 +264,5 @@
   </ng-container>
 
   <app-login-modal [isVisible]="showLoginModal" (close)="closeLoginModal()"></app-login-modal>
+  <app-logout-confirm [isVisible]="showLogoutConfirm" (confirm)="onConfirmLogout()" (close)="closeLogoutConfirm()"></app-logout-confirm>
 </nav>

@@ -11,6 +11,11 @@ import { Application } from '../../../core/models/applicationInterface';
 import { FormsModule } from '@angular/forms';
 import { LoginModal } from '../../../shared/components/login-modal/login-modal';
 import { User } from '../../../core/models/user';
+import { Store } from '@ngrx/store';
+import { Observable, take } from 'rxjs';
+import { FavoriteOffer } from '../../../core/models/favoriteOffer';
+import * as FavoritesActions from '../../../store/favorites/favorites.actions';
+import { selectIsFavorite, selectFavoriteByOfferId } from '../../../store/favorites/favorites.selectors';
 
 @Component({
   selector: 'app-job-detail',
@@ -22,7 +27,8 @@ import { User } from '../../../core/models/user';
 })
 export class JobDetail implements OnInit{
   @Input() showStatusCard = true;
-  isFavorite = false;
+  isFavorite = signal<boolean>(false);
+  favoriteData$!: Observable<FavoriteOffer | undefined>;
   job = signal<Job | null>(null);
   isTracked = signal(false);
   isProcessing = signal(false);
@@ -37,6 +43,7 @@ export class JobDetail implements OnInit{
   private auth = inject(Auth);
   private toastService = inject(ToastService);
   private router = inject(Router);
+  private store = inject(Store);
 
   constructor(private jobService : JobService) {}
 
@@ -49,13 +56,27 @@ export class JobDetail implements OnInit{
       this.job.set(job);
       this.checkIfTracked(job);
 
-      if (job && !job.contents) {
-        this.http.get<Job>(`${this.API_URL}/${job.id}`).subscribe(fullJob => {
-           this.job.set(fullJob);
-           this.checkIfTracked(fullJob);
-        });
+      if (job) {
+         // Setup NgRx selectors
+         const isFav$ = this.store.select(selectIsFavorite(job.id.toString()));
+         const favData$ = this.store.select(selectFavoriteByOfferId(job.id.toString()));
+         
+         // Convert to signal for easier template usage if preferred, or subscribe
+         // Since we used manual isFavorite boolean before, let's use a signal or manual subscription to keep template valid or update template.
+         // Let's update template to use async pipe or signal.
+         // Actually, let's just subscribe here to update the isFavorite signal to keep template changes minimal or consistent?
+         // No, let's be reactive. use toSignal or manual subscribe.
+         // Since imports might be tricky with toSignal, manual subscribe is safe.
+         isFav$.subscribe(val => this.isFavorite.set(val));
+         this.favoriteData$ = favData$;
+
+         if (!job.contents) {
+          this.http.get<Job>(`${this.API_URL}/${job.id}`).subscribe(fullJob => {
+             this.job.set(fullJob);
+             this.checkIfTracked(fullJob);
+          });
+        }
       }
-      this.isFavorite = false;
     });
   }
 
@@ -133,6 +154,26 @@ export class JobDetail implements OnInit{
     return text.length > 200 ? text.substring(0, 200) + '...' : text;
   }
   toggleFavorite() {
-    this.isFavorite = !this.isFavorite;
+    if (!this.user || !this.job()) return;
+
+    if (this.isFavorite()) {
+       // Remove
+       this.favoriteData$.pipe(take(1)).subscribe(fav => {
+         if (fav) {
+           this.store.dispatch(FavoritesActions.removeFavorite({ id: fav.id }));
+         }
+       });
+    } else {
+      // Add
+      const job = this.job()!;
+      const newFav: Omit<FavoriteOffer, 'id'> = {
+        userId: this.user.id,
+        offerId: job.id.toString(),
+        title: job.name,
+        company: job.company.name,
+        location: job.locations?.[0]?.name || 'Unknown'
+      };
+      this.store.dispatch(FavoritesActions.addFavorite({ favorite: newFav }));
+    }
   }
 }

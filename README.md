@@ -12,10 +12,7 @@ Une application web moderne et réactive développée avec **Angular 17+** perme
 
 ## � Démonstration
 
-> **[Insérer ici votre vidéo de démonstration ou lien YouTube]**
-> *Exemple : Une courte vidéo montrant le flux utilisateur : Recherche -> Ajout Favoris -> Candidature -> Suivi.*
-
-![Demo Preview](https://via.placeholder.com/800x400?text=Preview+Video+Placeholder)
+![Demo Preview](public/docs/JobFonderDemo.mp4)
 
 ---
 
@@ -151,4 +148,4 @@ Choisi pour sa rapidité de développement et sa facilité de maintenance par ra
 
 ---
 
-*Développé par [Votre Nom] - Février 2026*
+*Développé par [Mahjoub Cherkaoui] - Février 2026*

@@ -57,16 +57,10 @@ export class JobDetail implements OnInit{
       this.checkIfTracked(job);
 
       if (job) {
-         // Setup NgRx selectors
+
          const isFav$ = this.store.select(selectIsFavorite(job.id.toString()));
          const favData$ = this.store.select(selectFavoriteByOfferId(job.id.toString()));
          
-         // Convert to signal for easier template usage if preferred, or subscribe
-         // Since we used manual isFavorite boolean before, let's use a signal or manual subscription to keep template valid or update template.
-         // Let's update template to use async pipe or signal.
-         // Actually, let's just subscribe here to update the isFavorite signal to keep template changes minimal or consistent?
-         // No, let's be reactive. use toSignal or manual subscribe.
-         // Since imports might be tricky with toSignal, manual subscribe is safe.
          isFav$.subscribe(val => this.isFavorite.set(val));
          this.favoriteData$ = favData$;
 
@@ -157,14 +151,14 @@ export class JobDetail implements OnInit{
     if (!this.user || !this.job()) return;
 
     if (this.isFavorite()) {
-       // Remove
+
        this.favoriteData$.pipe(take(1)).subscribe(fav => {
          if (fav) {
            this.store.dispatch(FavoritesActions.removeFavorite({ id: fav.id }));
          }
        });
     } else {
-      // Add
+
       const job = this.job()!;
       const newFav: Omit<FavoriteOffer, 'id'> = {
         userId: this.user.id,

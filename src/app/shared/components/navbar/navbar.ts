@@ -88,7 +88,7 @@ export class Navbar implements OnInit {
   }
 
   logout() {
-    // Open confirmation modal instead of logging out immediately
+
     this.showLogoutConfirm = true;
     this.showProfileMenu = false;
   }

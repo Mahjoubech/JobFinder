@@ -11,7 +11,7 @@ export const initialState: FavoritesState = {
 export const favoritesReducer = createReducer(
   initialState,
   
-  // Load
+
   on(FavoritesActions.loadFavorites, (state) => ({ ...state, loading: true })),
   on(FavoritesActions.loadFavoritesSuccess, (state, { favorites }) => ({
     ...state,
@@ -24,13 +24,13 @@ export const favoritesReducer = createReducer(
     error
   })),
 
-  // Add
+
   on(FavoritesActions.addFavoriteSuccess, (state, { favorite }) => ({
     ...state,
     items: [...state.items, favorite]
   })),
 
-  // Remove
+
   on(FavoritesActions.removeFavoriteSuccess, (state, { id }) => ({
     ...state,
     items: state.items.filter(item => item.id !== id)

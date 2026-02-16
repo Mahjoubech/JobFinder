@@ -30,7 +30,6 @@ export class ApplicationService {
     return this.http.delete<void>(`${this.API_URL}/${id}`);
   }
 
-  // Check if a specific job is already tracked by this user
   isJobTracked(offerId: string, userId: string): Observable<Application[]> {
     return this.http.get<Application[]>(`${this.API_URL}?offerId=${offerId}&userId=${userId}`);
   }

@@ -55,11 +55,11 @@ export class MyJobs implements OnInit {
   loadSavedJobs() {
     this.store.select(selectAllFavorites).pipe(
       map(favorites => favorites.map(fav => ({
-          id: Number(fav.offerId), // Ensure ID is number as expected by Job interface
+          id: Number(fav.offerId),
           name: fav.title,
-          company: { name: fav.company }, // Map flat string to object structure
-          locations: [{ name: fav.location }], // Map flat string to array structure
-          publication_date: new Date().toISOString(), // Mock required field
+          company: { name: fav.company },
+          locations: [{ name: fav.location }],
+          publication_date: new Date().toISOString(),
           levels: [],
           tags: [],
           contents: '',
@@ -77,7 +77,7 @@ export class MyJobs implements OnInit {
     const user = this.auth.getCurrentUser();
     if (user) {
       this.appService.getUserApplications(user.id).subscribe(apps => {
-        // Sort by dateAdded descending (newest first)
+
         const sortedApps = apps.sort((a, b) => {
           return new Date(b.dateAdded || 0).getTime() - new Date(a.dateAdded || 0).getTime();
         });

@@ -34,7 +34,7 @@ export class JobService  {
     return this.http.get<any>(url).pipe(
       map(res => {
         const jobs = res.results.slice(0, limit);
-        this.originalJobs = jobs; // Store original fetch
+        this.originalJobs = jobs;
         return jobs;
       })
     );
@@ -132,8 +132,8 @@ export class JobService  {
             job.company?.name.toLowerCase().includes(lowerKey)
           );
         }
-        const finalJobs = result.slice(0, 20); // Limit results
-        this.originalJobs = finalJobs; // Store for filtering
+        const finalJobs = result.slice(0, 20);
+        this.originalJobs = finalJobs;
         return finalJobs;
       }),
       finalize(() => { this.loadingSubject.next(false); })

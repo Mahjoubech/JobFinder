@@ -44,7 +44,7 @@ export class JobCard implements OnInit {
   toggleFavorite() {
     if (!this.user) return;
 
-    // Use take(1) to get the current values without maintaining a subscription
+
     this.isFavorite$.pipe(take(1)).subscribe(isFav => {
       if (isFav) {
         this.favoriteData$.pipe(take(1)).subscribe(fav => {

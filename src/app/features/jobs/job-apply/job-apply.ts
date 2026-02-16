@@ -28,7 +28,7 @@ export class JobApply implements OnInit {
   private toastService = inject(ToastService);
 
   ngOnInit() {
-    // Resolver data
+
     const job = this.route.snapshot.data['job'];
     if (job) {
       this.job.set(job);

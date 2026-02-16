@@ -1,108 +1,154 @@
-# JobFinder
+# 🚀 JobFinder - Application de Recherche d'Emploi
 
-Application de recherche d'emploi développée en Angular 17+, utilisant l'API "The Muse" pour les offres d'emploi et JSON Server pour la persistance des données locales (favoris, candidatures).
+![Angular](https://img.shields.io/badge/Angular-17+-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![NgRx](https://img.shields.io/badge/NgRx-State_Management-BA2BD2?style=for-the-badge&logo=ngrx&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![RxJS](https://img.shields.io/badge/RxJS-Observables-B7178C?style=for-the-badge&logo=reactivex&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.2-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 
-## 📋 Fonctionnalités
+Une application web moderne et réactive développée avec **Angular 17+** permettant aux candidats de rechercher des offres d'emploi, de gérer leurs favoris et de suivre leurs candidatures. Ce projet a été réalisé dans le cadre d'un brief technique intensif de 5 jours.
 
-Cette application respecte les consignes du brief technique :
+---
 
-### Fonctionnalités Principales
-- **Recherche d'emploi** :
-  - Consommation de l'API publique **The Muse**.
-  - Recherche par mots-clés, localisation et filtres (niveau, entreprise).
-  - Pagination et tri des résultats.
-- **Gestion des Favoris (NgRx)** :
-  - Ajout/Suppression des offres en favoris.
-  - Persistance via JSON Server.
-  - Gestion d'état centralisée avec **NgRx** (Actions, Reducers, Selectors, Effects).
-- **Candidatures** :
-  - Postuler à une offre (formulaire réactif).
-  - Suivi des candidatures (En attente, Accepté, Refusé).
-  - Ajout de notes personnelles pour chaque candidature.
-- **Authentification Simulé** :
-  - Connexion/Déconnexion (email/nom).
-  - Stockage du profil utilisateur dans **localStorage** (session persistante).
-  - Protection des routes via **AuthGuard** (accès aux favoris/candidatures).
+## � Démonstration
 
-### Aspects Techniques
-- **Architecture Modulaire** :
-  - Structure claire : `Core` (services, modèles), `Features` (pages), `Shared` (composants réutilisables), `Store`.
-  - **Lazy Loading** : Chargement différé des modules de fonctionnalités (ex: `MyJobs`).
-- **Design & UI** :
-  - **Tailwind CSS** pour un design moderne, responsive et "premium".
-  - Utilisation de composants réutilisables (`JobCard`, `Navbar`, `Toast`).
-  - Animations et transitions fluides.
-- **Code Quality** :
-  - Utilisation de **RxJS** et Observables.
-  - Injection de dépendances (nouveau style `inject()`).
-  - Typage strict avec TypeScript.
-  - Gestion des erreurs HTTP centralisée.
+> **[Insérer ici votre vidéo de démonstration ou lien YouTube]**
+> *Exemple : Une courte vidéo montrant le flux utilisateur : Recherche -> Ajout Favoris -> Candidature -> Suivi.*
 
-## 🛠️ Stack Technique
+![Demo Preview](https://via.placeholder.com/800x400?text=Preview+Video+Placeholder)
 
-- **Framework** : Angular 17+ (Standalone Components)
-- **State Management** : NgRx (Store, Effects, DevTools)
-- **Styling** : Tailwind CSS
-- **Backend (Mock)** : JSON Server (`db.json`)
-- **API Externe** : The Muse API
-- **Outils** : RxJS, TypeScript, Vite
+---
 
-## 🚀 Installation et Lancement
+## 📋 Table des Matières
+- [About](#-a-propos)
+- [Fonctionnalités Clés](#-fonctionnalités-clés)
+- [Technologies & Outils](#-technologies--outils)
+- [Architecture & NgRx](#-architecture--state-management)
+- [Installation & Démarrage](#-installation--démarrage)
+- [Choix Techniques](#-choix-techniques-et-justifications)
+- [Compétences Validées](#-compétences-validées)
+
+---
+
+## ℹ️ A Propos
+
+Ce projet exploite l'API publique **The Muse** pour fournir des données réelles d'offres d'emploi. Il intègre également un backend simulé via **JSON Server** pour gérer la persistance des données utilisateur (favoris, candidatures, notes).
+
+**Objectif :** Créer une expérience utilisateur fluide (SPA) respectant les bonnes pratiques Angular modernes (Standalone Components, Signals, inject()).
+
+---
+
+## ✨ Fonctionnalités Clés
+
+### 🔍 Recherche Avancée (The Muse API)
+*   Recherche par mots-clés (ex: "Developer").
+*   Filtres par localisation et niveau d'expérience.
+*   Pagination et tri des résultats.
+
+### ❤️ Gestion des Favoris (NgRx Store)
+*   Architecture **Redux** complète (Actions, Reducers, Selectors, Effects).
+*   Ajout et suppression instantanés.
+*   Persistance des favoris dans `db.json`.
+
+### 📝 Suivi des Candidatures
+*   Formulaire réactif pour postuler.
+*   Tableau de bord "Mes Jobs" avec statuts : *En attente*, *Accepté*, *Refusé*.
+*   Ajout de notes personnelles pour chaque candidature.
+
+### 🔐 Authentification & Sécurité
+*   Système de login simulé (localStorage).
+*   **AuthGuard** protégeant les routes `/my-jobs` et `/profile`.
+*   Gestion des rôles (simulée pour l'UX).
+
+---
+
+## 🛠 Technologies & Outils
+
+| Catégorie | Technologie | Utilisation |
+| :--- | :--- | :--- |
+| **Framework** | **Angular 17+** | Structure principale, Standalone Components. |
+| **State** | **NgRx Store / Effects** | Gestion centralisée des favoris. |
+| **Styling** | **Tailwind CSS** | Design system utilitaire, responsive, dark mode. |
+| **Async** | **RxJS** | Gestion des flux de données et événements. |
+| **Backend** | **JSON Server** | Mock API pour persistence locale (`db.json`). |
+| **API** | **The Muse API** | Source de données d'offres d'emploi (`proxy.conf.json`). |
+| **Build** | **Vite / Node.js** | Outils de build et serveur de développement. |
+
+---
+
+## 🏗 Architecture & State Management
+
+L'application suit une architecture modulaire et scalable :
+
+```
+src/app/
+├── core/               # Services, Modèles, Interceptors (Singletons)
+├── features/           # Modules métier (Auth, Jobs, MyJobs, Profile)
+├── shared/             # Composants UI réutilisables (Navbar, Cards, Loaders)
+└── store/              # NgRx State Management
+    └── favorites/      # Actions, Reducers, Effects, Selectors
+```
+
+### Flux NgRx (Favoris)
+1.  **Component** dispatch une `Action` (ex: `addFavorite`).
+2.  **Effect** intercepte l'action, appelle le `Service` API, et dispatch `Success` ou `Failure`.
+3.  **Reducer** met à jour le `State` immuable.
+4.  **Selector** notifie le composant via un Observable.
+
+---
+
+## 🚀 Installation & Démarrage
 
 ### Prérequis
-- Node.js (v18+ recommandé)
-- npm
+*   Node.js (v18+)
+*   npm
 
-### 1. Installation des dépendances
+### 1. Cloner et Installer
 ```bash
+git clone https://github.com/votre-user/job-finder.git
+cd job-finder
 npm install
 ```
 
-### 2. Démarrer le Serveur Backend (JSON Server)
-Ce serveur gère les utilisateurs, les favoris et les candidatures.
+### 2. Démarrer le Backend (JSON Server)
+Dans un terminal dédié :
 ```bash
 npm run server
 ```
-*Le serveur sera accessible sur `http://localhost:3000`.*
+*Le serveur mock sera lancé sur `http://localhost:3000`.*
 
-### 3. Démarrer l'Application Frontend
-Dans un nouveau terminal :
+### 3. Démarrer l'Application Angular
+Dans un autre terminal :
 ```bash
 npm start
 ```
 *L'application sera accessible sur `http://localhost:4200`.*
 
-## 📂 Architecture du Projet
+---
 
-```
-src/app/
-├── core/               # Services singletons, modèles, guards, intercepteurs
-│   ├── gards/
-│   ├── interceptors/
-│   ├── models/
-│   └── service/
-├── features/           # Modules métier (pages)
-│   ├── auth/           # Login, Profil
-│   ├── jobs/           # Recherche, Détails, Liste
-│   └── my-jobs/        # Favoris, Candidatures (Lazy Loaded)
-├── shared/             # Composants, pipes, directives réutilisables
-│   ├── components/
-│   └── pipes/
-└── store/              # Gestion d'état NgRx
-    └── favorites/      # State des favoris
-```
+## � Choix Techniques et Justifications
 
-## 🔐 Authentification
+### LocalStorage vs SessionStorage
+Pour ce projet, nous avons choisi **localStorage** pour la gestion de l'authentification.
+*   **Justification** : Un candidat à la recherche d'emploi ne souhaite pas se reconnecter à chaque fermeture de navigateur. La persistance de la session améliore l'expérience utilisateur et permet un accès rapide aux favoris lors de visites récurrentes.
 
-L'application utilise une authentification simulée.
-- **Stockage** : `localStorage` est utilisé pour maintenir la session active même après la fermeture du navigateur (contrairement à `sessionStorage`), offrant une meilleure UX pour un chercheur d'emploi qui revient régulièrement.
-- **Sécurité** : Les routes `/profile` et `/my-jobs` sont protégées par un `AuthGuard`.
+### Standalone Components
+L'application utilise l'approche moderne **Standalone Components** d'Angular pour réduire le boilerplate (plus de NgModules inutiles) et améliorer le lazy loading des routes.
 
-## 📡 API Utilisée
-
-- **Nom** : The Muse API
-- **Documentation** : [https://www.themuse.com/developers/api/v2](https://www.themuse.com/developers/api/v2)
-- **Proxy** : Un fichier `proxy.conf.json` est configuré pour éviter les problèmes de CORS lors du développement.
+### Tailwind CSS
+Choisi pour sa rapidité de développement et sa facilité de maintenance par rapport à du CSS pur ou Bootstrap.
 
 ---
-**Développé pour le Brief "JobFinder" - Février 2026**
+
+## ✅ Compétences Validées
+
+*   [x] **C1N2** : Configuration de l'environnement de développement.
+*   [x] **C2N2** : Développement d'interfaces utilisateurs réactives.
+*   [x] **C3N2** : Création de composants métier complexes.
+*   [x] **C5N2** : Maquettage et intégration responsive.
+*   [x] **C6N2** : Architecture logicielle et State Management.
+*   [x] **C8N2** : Code propre, documenté et maintenable.
+
+---
+
+*Développé par [Votre Nom] - Février 2026*

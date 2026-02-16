@@ -12,7 +12,7 @@ Une application web moderne et réactive développée avec **Angular 17+** perme
 
 ## � Démonstration
 
-![Demo Preview](./public/docs/JobFonderDemo.mp4)
+[Demo Preview](./public/docs/JobFonderDemo.mp4)
 
 ---
 

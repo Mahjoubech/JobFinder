@@ -36,6 +36,7 @@ export class Navbar implements OnInit {
       if(user){
         this.store.dispatch(FavoritesActions.loadFavorites({userId: user.id}));
        }
+     this.user = user;
     });
 
     this.route.queryParams.subscribe((params: any) => {

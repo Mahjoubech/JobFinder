@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Favorite } from '../../core/models/favorite';
+import { FavoriteOffer } from '../../core/models/favoriteOffer';
 
 export const loadFavorites = createAction(
   '[Favorites] Load Favorites',

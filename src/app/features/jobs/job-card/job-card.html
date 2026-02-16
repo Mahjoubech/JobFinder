@@ -71,12 +71,12 @@
       >
         <svg
           class="w-5 h-5 transition-all duration-300"
-          [class.fill-red-500]="isFavorite"
-          [class.text-red-500]="isFavorite"
-          [class.text-gray-400]="!isFavorite"
-          [class.dark:text-gray-500]="!isFavorite"
-          [class.group-hover/fav:text-red-500]="!isFavorite"
-          [class.scale-110]="isFavorite"
+          [class.fill-red-500]="isFavorite$ | async"
+          [class.text-red-500]="isFavorite$ | async"
+          [class.text-gray-400]="!(isFavorite$ | async)"
+          [class.dark:text-gray-500]="!(isFavorite$ | async)"
+          [class.group-hover/fav:text-red-500]="!(isFavorite$ | async)"
+          [class.scale-110]="isFavorite$ | async"
           viewBox="0 0 24 24"
           stroke="currentColor"
           stroke-width="2"

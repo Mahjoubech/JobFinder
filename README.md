@@ -1,59 +1,108 @@
 # JobFinder
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.3.
+Application de recherche d'emploi développée en Angular 17+, utilisant l'API "The Muse" pour les offres d'emploi et JSON Server pour la persistance des données locales (favoris, candidatures).
 
-## Development server
+## 📋 Fonctionnalités
 
-To start a local development server, run:
+Cette application respecte les consignes du brief technique :
 
+### Fonctionnalités Principales
+- **Recherche d'emploi** :
+  - Consommation de l'API publique **The Muse**.
+  - Recherche par mots-clés, localisation et filtres (niveau, entreprise).
+  - Pagination et tri des résultats.
+- **Gestion des Favoris (NgRx)** :
+  - Ajout/Suppression des offres en favoris.
+  - Persistance via JSON Server.
+  - Gestion d'état centralisée avec **NgRx** (Actions, Reducers, Selectors, Effects).
+- **Candidatures** :
+  - Postuler à une offre (formulaire réactif).
+  - Suivi des candidatures (En attente, Accepté, Refusé).
+  - Ajout de notes personnelles pour chaque candidature.
+- **Authentification Simulé** :
+  - Connexion/Déconnexion (email/nom).
+  - Stockage du profil utilisateur dans **localStorage** (session persistante).
+  - Protection des routes via **AuthGuard** (accès aux favoris/candidatures).
+
+### Aspects Techniques
+- **Architecture Modulaire** :
+  - Structure claire : `Core` (services, modèles), `Features` (pages), `Shared` (composants réutilisables), `Store`.
+  - **Lazy Loading** : Chargement différé des modules de fonctionnalités (ex: `MyJobs`).
+- **Design & UI** :
+  - **Tailwind CSS** pour un design moderne, responsive et "premium".
+  - Utilisation de composants réutilisables (`JobCard`, `Navbar`, `Toast`).
+  - Animations et transitions fluides.
+- **Code Quality** :
+  - Utilisation de **RxJS** et Observables.
+  - Injection de dépendances (nouveau style `inject()`).
+  - Typage strict avec TypeScript.
+  - Gestion des erreurs HTTP centralisée.
+
+## 🛠️ Stack Technique
+
+- **Framework** : Angular 17+ (Standalone Components)
+- **State Management** : NgRx (Store, Effects, DevTools)
+- **Styling** : Tailwind CSS
+- **Backend (Mock)** : JSON Server (`db.json`)
+- **API Externe** : The Muse API
+- **Outils** : RxJS, TypeScript, Vite
+
+## 🚀 Installation et Lancement
+
+### Prérequis
+- Node.js (v18+ recommandé)
+- npm
+
+### 1. Installation des dépendances
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+### 2. Démarrer le Serveur Backend (JSON Server)
+Ce serveur gère les utilisateurs, les favoris et les candidatures.
 ```bash
-ng generate component component-name
+npm run server
+```
+*Le serveur sera accessible sur `http://localhost:3000`.*
+
+### 3. Démarrer l'Application Frontend
+Dans un nouveau terminal :
+```bash
+npm start
+```
+*L'application sera accessible sur `http://localhost:4200`.*
+
+## 📂 Architecture du Projet
+
+```
+src/app/
+├── core/               # Services singletons, modèles, guards, intercepteurs
+│   ├── gards/
+│   ├── interceptors/
+│   ├── models/
+│   └── service/
+├── features/           # Modules métier (pages)
+│   ├── auth/           # Login, Profil
+│   ├── jobs/           # Recherche, Détails, Liste
+│   └── my-jobs/        # Favoris, Candidatures (Lazy Loaded)
+├── shared/             # Composants, pipes, directives réutilisables
+│   ├── components/
+│   └── pipes/
+└── store/              # Gestion d'état NgRx
+    └── favorites/      # State des favoris
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🔐 Authentification
 
-```bash
-ng generate --help
-```
+L'application utilise une authentification simulée.
+- **Stockage** : `localStorage` est utilisé pour maintenir la session active même après la fermeture du navigateur (contrairement à `sessionStorage`), offrant une meilleure UX pour un chercheur d'emploi qui revient régulièrement.
+- **Sécurité** : Les routes `/profile` et `/my-jobs` sont protégées par un `AuthGuard`.
 
-## Building
+## 📡 API Utilisée
 
-To build the project run:
+- **Nom** : The Muse API
+- **Documentation** : [https://www.themuse.com/developers/api/v2](https://www.themuse.com/developers/api/v2)
+- **Proxy** : Un fichier `proxy.conf.json` est configuré pour éviter les problèmes de CORS lors du développement.
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+**Développé pour le Brief "JobFinder" - Février 2026**

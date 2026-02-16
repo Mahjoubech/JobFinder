@@ -58,8 +58,12 @@
   ],
   "favoritesOffers": [
     {
-      "id": "ghsdjsgjdsjgjsg",
-      "order_id": "123"
+      "id": 1,
+      "userId": "8d9a78f5-fd29-498b-871c-ba76c394914b",
+      "offerId": "19987712",
+      "title": "Department Supervisor",
+      "company": "Walmart",
+      "location": "Casablanca"
     }
   ],
   "applications": [

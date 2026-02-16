@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import {Store} from '@angular/store'
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/router';
 import { Auth } from '../../../core/service/auth';
@@ -16,6 +17,7 @@ import { NotificationService } from '../../../core/service/notification.service'
 })
 export class Navbar implements OnInit {
   private router = inject(Router);
+  private store = inject(Store);
   showProfileMenu = false;
   isDarkMode = false;
   user: User | null = null;
@@ -30,7 +32,9 @@ export class Navbar implements OnInit {
 
   ngOnInit() {
     this.authService.currentUser$.subscribe(user => {
-      this.user = user;
+      if(user){
+        this.store.dispatch(FavoritesActions.loadFavorites({userId: user.id}));
+       }
     });
 
     this.route.queryParams.subscribe((params: any) => {

@@ -13,8 +13,10 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([apiInterceptor])),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideStore(),
-    provideEffects(),
+    provideStore(
+            {favorites: favoritesReducer }
+      ),
+    provideEffects([FavoritesEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode()

@@ -10,6 +10,10 @@ import { Navbar } from '../../shared/components/navbar/navbar';
 import { ToastService } from '../../core/service/toast';
 import { FormsModule } from '@angular/forms';
 import { Pagination } from '../../shared/components/pagination/pagination';
+import { Store } from '@ngrx/store';
+import { map, take } from 'rxjs';
+import * as FavoritesActions from '../../store/favorites/favorites.actions';
+import { selectAllFavorites, selectFavoriteByOfferId } from '../../store/favorites/favorites.selectors';
 
 @Component({
   selector: 'app-my-jobs',
@@ -26,12 +30,13 @@ export class MyJobs implements OnInit {
   currentPage = signal(1);
   itemsPerPage = 2;
 
-  private jobService = inject(JobService);
-  private appService = inject(ApplicationService);
-  private auth = inject(Auth);
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private toastService = inject(ToastService);
+  private readonly jobService = inject(JobService);
+  private readonly appService = inject(ApplicationService);
+  private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly toastService = inject(ToastService);
+  private readonly store = inject(Store);
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -48,7 +53,22 @@ export class MyJobs implements OnInit {
   }
 
   loadSavedJobs() {
-    this.jobService.favorites$.subscribe(jobs => {
+    this.store.select(selectAllFavorites).pipe(
+      map(favorites => favorites.map(fav => ({
+          id: Number(fav.offerId), // Ensure ID is number as expected by Job interface
+          name: fav.title,
+          company: { name: fav.company }, // Map flat string to object structure
+          locations: [{ name: fav.location }], // Map flat string to array structure
+          publication_date: new Date().toISOString(), // Mock required field
+          levels: [],
+          tags: [],
+          contents: '',
+          type: '',
+          categories: [],
+          refs: { landing_page: '' },
+          model_type: 'favorite'
+      } as unknown as Job)))
+    ).subscribe(jobs => {
       this.savedJobs.set([...jobs].reverse());
     });
   }
@@ -98,7 +118,12 @@ export class MyJobs implements OnInit {
   }
 
   removeFavorite(job: Job) {
-      this.jobService.toggleFavorite(job);
+      this.store.select(selectFavoriteByOfferId(job.id.toString())).pipe(take(1)).subscribe(fav => {
+          if (fav) {
+              this.store.dispatch(FavoritesActions.removeFavorite({ id: fav.id }));
+              this.toastService.show('Removed from favorites', 'success');
+          }
+      });
   }
 
   updateStatus(app: Application, event: any) {

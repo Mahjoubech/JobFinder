@@ -8,7 +8,7 @@ export const loadFavorites = createAction(
 
 export const loadFavoritesSuccess = createAction(
   '[Favorites] Load Favorites Success',
-  props<{ favorites: Favorite[] }>()
+  props<{ favorites: FavoriteOffer[] }>()
 );
 
 export const loadFavoritesFailure = createAction(
@@ -18,12 +18,12 @@ export const loadFavoritesFailure = createAction(
 
 export const addFavorite = createAction(
   '[Favorites] Add Favorite',
-  props<{ favorite: Omit<Favorite, 'id'> }>()
+  props<{ favorite: Omit<FavoriteOffer, 'id'> }>()
 );
 
 export const addFavoriteSuccess = createAction(
   '[Favorites] Add Favorite Success',
-  props<{ favorite: Favorite }>()
+  props<{ favorite: FavoriteOffer }>()
 );
 
 export const addFavoriteFailure = createAction(

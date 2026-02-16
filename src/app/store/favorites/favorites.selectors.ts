@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { FavoritesState } from '../models/favoriteState';
+import { FavoritesState } from '../../core/models/favoritesState';
 
 export const selectFavoritesState = createFeatureSelector<FavoritesState>('favorites');
 
@@ -13,13 +13,12 @@ export const selectFavoritesLoading = createSelector(
   (state) => state.loading
 );
 
-
 export const selectIsFavorite = (offerId: string) => createSelector(
   selectAllFavorites,
-  (favorites) => favorites.some(fav => fav.offerId === offerId)
+  (favorites) => favorites ? favorites.some(fav => fav.offerId === offerId) : false
 );
 
 export const selectFavoriteByOfferId = (offerId: string) => createSelector(
     selectAllFavorites,
-    (favorites) => favorites.find(fav => fav.offerId === offerId)
+    (favorites) => favorites ? favorites.find(fav => fav.offerId === offerId) : undefined
 );

@@ -1,5 +1,7 @@
+import { FavoriteOffer } from './favoriteOffer';
+
 export interface FavoritesState {
-  items: Favorite[];
+  items: FavoriteOffer[];
   loading: boolean;
   error: string | null;
 }

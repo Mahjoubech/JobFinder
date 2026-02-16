@@ -1,9 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import {Store} from '@angular/store'
+import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, ActivatedRoute } from '@angular/router';
 import { Auth } from '../../../core/service/auth';
 import { User } from '../../../core/models/user';
+import * as FavoritesActions from '../../../store/favorites/favorites.actions';
 import { LoginModal } from '../login-modal/login-modal';
 import { LogoutConfirm } from '../logout-confirm/logout-confirm';
 import { NotificationService } from '../../../core/service/notification.service';

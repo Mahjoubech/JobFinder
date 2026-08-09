@@ -19,7 +19,10 @@
       "firstName": "eeee",
       "lastName": "eeeee",
       "email": "hamadi@gmail.com",
-      "password": "password"
+      "password": "password",
+      "jobTitle": "Full Stack Developer",
+      "profileImage": "",
+      "resumeUrl": ""
     },
     {
       "id": "9f31d021-e4bb-444c-a78a-f9f84a1add0b",
@@ -44,6 +47,16 @@
       "jobTitle": "",
       "profileImage": "data:image/jpeg;base64,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",
       "resumeUrl": "mahjoub@gmail.com"
+    },
+    {
+      "id": "bc76bda5-e584-4ff3-a69a-b6dd21c0eb53",
+      "firstName": "Mahjoub",
+      "lastName": "Cherkaoui",
+      "email": "cherkaoui26@gmail",
+      "password": "password",
+      "jobTitle": "Full Stack Developer",
+      "profileImage": "",
+      "resumeUrl": "cherkaoui@gmail.com"
     }
   ],
   "favoritesOffers": [
@@ -158,6 +171,30 @@
       "title": "Spring 2026 Intern - Electronics (Masters), C++",
       "company": "Ansys",
       "location": "Austin, TX"
+    },
+    {
+      "id": "c9b5",
+      "userId": "bc76bda5-e584-4ff3-a69a-b6dd21c0eb53",
+      "offerId": "21308519",
+      "title": "Underwriting Manager, Farm",
+      "company": "Liberty Mutual Insurance",
+      "location": "Atlanta, GA"
+    },
+    {
+      "userId": "fd0f1823-b348-4aec-ae6a-1527ee793998",
+      "offerId": "18888634",
+      "title": "Grab & Go Food Associate",
+      "company": "Walmart",
+      "location": "Springdale, AR",
+      "id": "r5ZeQxsnhbE"
+    },
+    {
+      "userId": "fd0f1823-b348-4aec-ae6a-1527ee793998",
+      "offerId": "21653317",
+      "title": "Category Strategy Operations Manager Project Intern (TikTok Shop Consumables) - 2026 Start (BS/MS)",
+      "company": "TikTok",
+      "location": "Mexico City, Mexico",
+      "id": "y7EpCWaxm2I"
     }
   ],
   "applications": [
@@ -329,6 +366,33 @@
       "status": "en_attente",
       "notes": "test update",
       "dateAdded": "2026-02-16T16:00:31.912Z"
+    },
+    {
+      "id": "07aa",
+      "userId": "bc76bda5-e584-4ff3-a69a-b6dd21c0eb53",
+      "offerId": "19832334",
+      "apiSource": "themuse",
+      "title": "Retail Manager - Tire and Battery Center",
+      "company": "Walmart",
+      "location": "Omaha, NE",
+      "url": "https://www.themuse.com/jobs/walmart/retail-manager-tire-and-battery-center-81dbb3",
+      "status": "refused",
+      "notes": "test",
+      "dateAdded": "2026-02-25T11:17:35.587Z"
+    },
+    {
+      "userId": "fd0f1823-b348-4aec-ae6a-1527ee793998",
+      "offerId": "21653317",
+      "apiSource": "themuse",
+      "title": "Category Strategy Operations Manager Project Intern (TikTok Shop Consumables) - 2026 Start (BS/MS)",
+      "company": "TikTok",
+      "location": "Mexico City, Mexico",
+      "url": "https://www.themuse.com/jobs/tiktok/category-strategy-operations-manager-project-intern-tiktok-shop-consumables-2026-start-bsms",
+      "status": "en_attente",
+      "notes": "dddcd",
+      "dateAdded": "2026-08-09T15:30:00.905Z",
+      "id": "h2MsfG30p2M"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

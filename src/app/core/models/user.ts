@@ -7,4 +7,5 @@ export interface User{
   resumeUrl?: string,
   jobTitle?: string,
   profileImage?: string
+  role?: 'admin' | 'user';
 }

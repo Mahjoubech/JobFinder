@@ -19,10 +19,13 @@ export class Register {
 
    constructor(private authService : Auth , private router : Router) {}
 
-
+  onInit() {}
   register() {
     this.errorMess = null;
-
+    if (!this.firstName || !this.lastName || !this.email || !this.password || !this.confirmPass) {
+      this.errorMess = "All fields are required";
+      return;
+    }
     if (this.password !== this.confirmPass) {
       this.errorMess = "Passwords do not match";
       return;

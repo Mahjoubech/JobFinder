@@ -19,14 +19,13 @@ export class JobService  {
   selectedJob$ = this.selectedJobSubject.asObservable();
   private favoritesSubject = new BehaviorSubject<Job[]>([]);
   favorites$ = this.favoritesSubject.asObservable();
-  
+
   constructor(private http: HttpClient) {
     const stored = localStorage.getItem('favorites');
     if (stored) {
       this.favoritesSubject.next(JSON.parse(stored));
     }
   }
-
   private originalJobs: Job[] = [];
 
   getJobs(page: number = 0, limit: number = 20): Observable<Job[]> {
@@ -149,7 +148,7 @@ export class JobService  {
     this.http.get<any>(url).pipe(
        map(res => {
            const jobs = res.results.slice(0, 20);
-           this.originalJobs = jobs; // Store for filtering
+           this.originalJobs = jobs;
            return jobs;
        }),
        finalize(() => { this.loadingSubject.next(false); })

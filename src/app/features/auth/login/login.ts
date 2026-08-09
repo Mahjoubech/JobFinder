@@ -17,6 +17,10 @@ export class Login {
   constructor(private authService : Auth , private router:Router) {}
   login() {
     this.errorMess = null;
+    if (!this.email || !this.password) {
+      this.errorMess = "Email and password are required";
+      return;
+    }
     this.authService.login(this.email, this.password).subscribe({
       next: (user) => {
         this.router.navigate(['/']);

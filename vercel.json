@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/themuse-api/:path*",
+      "destination": "https://www.themuse.com/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
